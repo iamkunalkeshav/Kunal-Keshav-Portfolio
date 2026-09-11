@@ -549,27 +549,48 @@ function initAITerminal() {
     }
   });
 
-  // Simulated AI Logic
-  const responses = [
-    { keys: ["dark", "light", "theme", "mode", "lights"], text: "Executing Agent Tool: <strong>toggleTheme()</strong>... Switching website theme!", action: () => document.getElementById('theme-toggle').click() },
+  // Simulated AI Knowledge Base
+  const knowledge = [
+    { keys: ["dark", "light", "theme", "mode", "lights", "toggle"], text: "Executing Agent Tool: <strong>toggleTheme()</strong>... Switching website theme!", action: () => document.getElementById('theme-toggle').click() },
     { keys: ["scroll", "down", "bottom", "end", "footer"], text: "Executing Agent Tool: <strong>scrollToBottom()</strong>...", action: () => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }) },
     { keys: ["top", "up", "home"], text: "Executing Agent Tool: <strong>scrollToTop()</strong>...", action: () => window.scrollTo({ top: 0, behavior: 'smooth' }) },
-    { keys: ["accenture", "work", "experience", "job"], text: "At Accenture, I work as an Applied AI Engineer. I engineered Python-based LLM workflow automation tools that increased throughput by 40%. I also built RAG pipelines reducing retrieval latency by 45% using LangChain and Pinecone, and architected multi-agent orchestration systems using LangGraph." },
-    { keys: ["rag", "pipeline", "search", "vector"], text: "I have deep expertise in RAG (Retrieval-Augmented Generation). For example, I built a Secure Enterprise RAG pipeline that achieves a RAGAS faithfulness of 0.88, sub-2s P95 latency, and implements strict Role-Based Access Control (RBAC)." },
-    { keys: ["skill", "skills", "tech", "stack", "technology", "technologies", "tool", "tools"], text: "My main skills include <strong>AI/ML & Agents</strong> (OpenAI, Claude, LangChain, LangGraph, RAG, Pinecone, Agent Memory, MCP), <strong>Backend</strong> (Python, FastAPI, Node.js, Spring Boot), and <strong>DevOps/Cloud</strong> (Docker, AWS, MongoDB)." },
-    { keys: ["project", "projects", "github", "code"], text: "Check out my featured open source work! <br>- <strong>multi-tool-autonomous-ai-agent</strong>: A LangGraph agent with dynamic tool routing.<br>- <strong>secure-enterprise-rag</strong>: RAG pipeline with strict RBAC and ChromaDB." },
-    { keys: ["education", "degree", "college", "university", "study", "studies"], text: "I have a Bachelor of Technology in Computer Science from Haldia Institute of Technology, and I am pursuing a Master of Technology in Data Science and Artificial Intelligence from PES University (2026-2028)." },
-    { keys: ["contact", "email", "hire", "reach"], text: "You can reach me via email at kunalkeshav2002@gmail.com, or connect with me on LinkedIn!" },
-    { keys: ["hi", "hello", "hey", "who", "what"], text: "Hello! I am Kunal's simulated AI Agent. I can answer questions about his skills, experience, projects, or education. What would you like to know?" }
+    
+    { keys: ["accenture", "work", "experience", "job", "do", "role", "company", "career"], text: "At Accenture, I work as an Applied AI Engineer. I engineered Python-based LLM workflow automation tools that increased throughput by 40%. I also built RAG pipelines reducing retrieval latency by 45% using LangChain and Pinecone, and architected multi-agent orchestration systems using LangGraph." },
+    { keys: ["rag", "pipeline", "search", "vector", "chromadb", "pinecone", "retrieval"], text: "I have deep expertise in RAG (Retrieval-Augmented Generation). For example, I built a Secure Enterprise RAG pipeline that achieves a RAGAS faithfulness of 0.88, sub-2s P95 latency, and implements strict Role-Based Access Control (RBAC)." },
+    { keys: ["skill", "skills", "tech", "stack", "technology", "technologies", "tool", "tools", "language", "languages", "know"], text: "My main skills include <strong>AI/ML & Agents</strong> (OpenAI, Claude, LangChain, LangGraph, RAG, Pinecone, Agent Memory, MCP), <strong>Backend</strong> (Python, FastAPI, Node.js, Spring Boot), and <strong>DevOps/Cloud</strong> (Docker, AWS, MongoDB)." },
+    { keys: ["project", "projects", "github", "code", "portfolio", "build", "built", "made"], text: "Check out my featured open source work! <br>- <strong>multi-tool-autonomous-ai-agent</strong>: A LangGraph agent with dynamic tool routing.<br>- <strong>secure-enterprise-rag</strong>: RAG pipeline with strict RBAC and ChromaDB." },
+    { keys: ["education", "degree", "college", "university", "study", "studies", "mtech", "btech", "graduated", "pes", "haldia"], text: "I have a B.Tech in Computer Science from Haldia Institute of Technology, and I am currently pursuing an M.Tech in Data Science and Artificial Intelligence from PES University (2026-2028)." },
+    { keys: ["contact", "email", "hire", "reach", "message", "call"], text: "You can reach me via email at kunalkeshav2002@gmail.com, or connect with me on LinkedIn!" },
+    { keys: ["hi", "hello", "hey", "who", "what", "are", "you", "name"], text: "Hello! I am Kunal's simulated AI Agent. I can answer questions about his skills, experience, projects, or education. What would you like to know?" }
   ];
 
   function getBotResponse(query) {
     query = query.toLowerCase();
-    for (let r of responses) {
-      if (r.keys.some(k => new RegExp('\\b' + k + '\\b').test(query))) {
-        return { text: r.text, action: r.action };
+    
+    let bestMatch = null;
+    let highestScore = 0;
+
+    // Keyword scoring algorithm
+    for (let item of knowledge) {
+      let score = 0;
+      for (let key of item.keys) {
+        if (new RegExp('\\b' + key + '\\b').test(query)) {
+          // Weight specific nouns higher than generic words like "what" or "do"
+          let weight = (key === "what" || key === "who" || key === "do" || key === "are" || key === "you") ? 1 : 3;
+          score += weight;
+        }
+      }
+      
+      if (score > highestScore) {
+        highestScore = score;
+        bestMatch = item;
       }
     }
+
+    if (bestMatch && highestScore > 0) {
+      return { text: bestMatch.text, action: bestMatch.action };
+    }
+
     return { text: "I'm a simulated agent trained on Kunal's resume, so I don't know the answer to that specific question. Try asking about his <strong>skills</strong>, <strong>Accenture experience</strong>, or <strong>projects</strong>!" };
   }
 
