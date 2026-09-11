@@ -1658,13 +1658,13 @@ html.dark .theme-toggle .moon-icon { display: none; }
 .work-bullet-card {
   border-radius: calc(var(--radius) - 2px);
   border: 1px solid var(--border);
-  background: hsl(220 14.3% 98%);
+  background: var(--card);
   padding: 0.625rem 0.75rem;
   transition: border-color 0.2s ease;
 }
 
 .work-bullet-card:hover {
-  border-color: hsl(220 13% 84%);
+  border-color: var(--muted-foreground);
 }
 
 .work-bullet-label {
