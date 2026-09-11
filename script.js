@@ -646,6 +646,38 @@ function initAITerminal() {
     { id: "team_player", keys: ["team", "player", "solo", "contributor", "alone"], text: "I am a strong solo contributor who can take a feature from zero to production independently. However, engineering is a team sport. I communicate constantly, review code thoroughly, and love pairing on tough bugs." },
     { id: "why_hire", keys: ["why", "hire", "different", "candidate", "candidates"], text: "You should hire me because I don't just glue API calls together. I understand the underlying backend architecture required to make AI performant, secure, and scalable in a production environment. I build agents that actually work." },
 
+    // Ultra Advanced Architecture
+    { id: "serverless_arch", keys: ["serverless", "lambda", "cold", "starts"], text: "I leverage serverless architectures like AWS Lambda for event-driven workloads to reduce costs and operational overhead. I mitigate cold starts by using provisioned concurrency and keeping deployment packages minimal." },
+    { id: "observability", keys: ["observability", "monitoring", "datadog", "prometheus", "grafana"], text: "You can't fix what you can't measure. I implement robust observability using Prometheus/Grafana or Datadog, ensuring every microservice has structured logging, distributed tracing, and critical alerts configured." },
+    { id: "db_scaling", keys: ["sharding", "replication", "replicas", "scaling"], text: "To scale databases, I start by adding read replicas to offload read-heavy queries. If write throughput becomes the bottleneck, I look into vertical scaling or horizontal sharding based on a high-cardinality partition key." },
+    { id: "websockets", keys: ["websockets", "socket", "sse", "real-time"], text: "For real-time data, I use WebSockets or Server-Sent Events (SSE). In AI applications, SSE is particularly useful for streaming token responses from LLMs to the client to drastically improve perceived latency." },
+    { id: "legacy_code", keys: ["legacy", "monolith", "strangler"], text: "I don't shy away from legacy code. I approach it with respect, write integration tests around the existing behavior first, and use the Strangler Fig pattern to incrementally migrate legacy monoliths to modern microservices." },
+    
+    // Advanced AI & Data
+    { id: "ai_ethics", keys: ["ethics", "bias", "responsible", "ethical"], text: "AI Ethics is critical. I ensure my RAG pipelines and prompts have strict safety guardrails. We must actively test for bias in model outputs and implement human-in-the-loop (HITL) workflows for high-stakes decisions." },
+    { id: "langchain_vs_llama", keys: ["langchain", "llamaindex", "framework"], text: "I use LangChain when I need to build complex, tool-using agents with cyclic graphs (LangGraph). I prefer LlamaIndex when the core problem is purely about deep data ingestion, chunking, and advanced retrieval algorithms." },
+    { id: "agentic_patterns", keys: ["react", "plan", "solve", "reasoning"], text: "Beyond basic tool-use, I implement advanced agentic patterns like ReAct (Reason + Act) and Plan-and-Solve. This forces the LLM to break down complex tasks into sub-steps before executing any arbitrary tools." },
+    { id: "event_sourcing", keys: ["event", "sourcing", "cqrs", "driven"], text: "For complex domains, I use Event Sourcing to maintain an immutable log of state changes, often paired with CQRS to separate the heavy write logic from optimized read projections." },
+    
+    // Engineering Culture
+    { id: "code_review", keys: ["review", "pr", "pull", "request"], text: "My code reviews are thorough but empathetic. I focus on architecture, performance, and security flaws, leaving style arguments to automated linters (Prettier/ESLint). I always assume positive intent." },
+    { id: "testing_strat", keys: ["e2e", "integration", "cypress", "selenium", "playwright"], text: "I follow the testing pyramid: heavy on fast unit tests, moderate on integration tests for database/API contracts, and a few critical End-to-End (E2E) tests using Cypress or Playwright to ensure the core user journeys work." },
+    { id: "tech_stack", keys: ["stack", "choice", "picking", "technologies"], text: "I choose tech stacks based on the team's expertise, the project's scalability needs, and community support. I avoid 'resume-driven development'—boring technology is often the best technology for production." },
+    
+    // Personal & Team Dynamics
+    { id: "burnout", keys: ["burnout", "mental", "health", "balance", "overworked"], text: "I take burnout seriously. I maintain strict boundaries, take walks away from the screen, and encourage my team to take their PTO. A rested engineer is exponentially more productive than an exhausted one." },
+    { id: "onboarding", keys: ["onboarding", "ramp", "first", "days"], text: "In my first 30 days, my goal is to become a net-positive contributor. I do this by pairing with senior engineers, documenting anything I find confusing (improving onboarding for the next person!), and shipping a small bug fix in week one." },
+    { id: "diversity", keys: ["diversity", "inclusion", "belonging", "diverse"], text: "I firmly believe that diverse teams build better products because they bring different problem-solving perspectives. I actively foster an inclusive environment where all voices are heard and psychological safety is paramount." },
+    { id: "agile_metrics", keys: ["velocity", "story", "points", "burn", "down"], text: "I use story points to measure complexity, not time. Velocity is a tool for the team to predict capacity, not a weapon for management to enforce quotas. The goal is consistent, predictable delivery." },
+    
+    // Advanced Frontend & GraphQL
+    { id: "microfrontends", keys: ["microfrontends", "module", "federation"], text: "For massive web applications, I understand the value of Microfrontends using Webpack Module Federation. It allows independent teams to deploy their own UI features without stepping on each other's toes." },
+    { id: "graphql_fed", keys: ["apollo", "federation", "supergraph"], text: "If a company relies heavily on GraphQL, I implement Apollo Federation to combine multiple subgraphs (owned by different microservice teams) into a single unified Supergraph API for the frontend clients." },
+    
+    // Compensation & Hobbies
+    { id: "salary_flex", keys: ["negotiate", "flexible", "compensation", "cut"], text: "While I know my market value, I am flexible on base compensation if the role offers significant equity, an incredible learning environment, or the chance to work on cutting-edge Agentic AI problems." },
+    { id: "hobby_deep", keys: ["hobbies", "outside", "personal", "life"], text: "Outside of coding, I'm passionate about fitness, exploring the outdoors, and reading sci-fi. Keeping a balanced life outside of tech keeps my mind sharp when I return to the keyboard." },
+
     // Casual / Fun
     { id: "chatgpt", keys: ["chatgpt", "skynet", "real", "human", "bot", "sentient", "alive"], text: "I am not ChatGPT or Skynet! I am a highly optimized, client-side NLP simulation written entirely in JavaScript by Kunal to demonstrate his engineering skills." },
     { id: "joke", keys: ["joke", "funny", "laugh", "humor"], text: [
@@ -846,6 +878,118 @@ function initAITerminal() {
       { phrase: "what makes you different", targetId: "why_hire" },
       { phrase: "why should i hire you", targetId: "why_hire" },
       { phrase: "hire you", targetId: "why_hire" },
+
+      // Ultra Advanced Architecture
+      { phrase: "serverless", targetId: "serverless_arch" },
+      { phrase: "aws lambda", targetId: "serverless_arch" },
+      { phrase: "cold starts", targetId: "serverless_arch" },
+      { phrase: "serverless architecture", targetId: "serverless_arch" },
+      { phrase: "provisioned concurrency", targetId: "serverless_arch" },
+      { phrase: "observability", targetId: "observability" },
+      { phrase: "monitoring", targetId: "observability" },
+      { phrase: "datadog", targetId: "observability" },
+      { phrase: "prometheus", targetId: "observability" },
+      { phrase: "grafana", targetId: "observability" },
+      { phrase: "sharding", targetId: "db_scaling" },
+      { phrase: "database replication", targetId: "db_scaling" },
+      { phrase: "read replicas", targetId: "db_scaling" },
+      { phrase: "scaling databases", targetId: "db_scaling" },
+      { phrase: "vertical scaling", targetId: "db_scaling" },
+      { phrase: "websockets", targetId: "websockets" },
+      { phrase: "real-time", targetId: "websockets" },
+      { phrase: "socket.io", targetId: "websockets" },
+      { phrase: "server-sent events", targetId: "websockets" },
+      { phrase: "streaming tokens", targetId: "websockets" },
+      { phrase: "legacy code", targetId: "legacy_code" },
+      { phrase: "old codebase", targetId: "legacy_code" },
+      { phrase: "monolith", targetId: "legacy_code" },
+      { phrase: "strangler fig", targetId: "legacy_code" },
+      { phrase: "migrate to microservices", targetId: "legacy_code" },
+
+      // Advanced AI & Data
+      { phrase: "ai ethics", targetId: "ai_ethics" },
+      { phrase: "bias in ai", targetId: "ai_ethics" },
+      { phrase: "responsible ai", targetId: "ai_ethics" },
+      { phrase: "ethical ai", targetId: "ai_ethics" },
+      { phrase: "human in the loop", targetId: "ai_ethics" },
+      { phrase: "langchain vs llamaindex", targetId: "langchain_vs_llama" },
+      { phrase: "which framework", targetId: "langchain_vs_llama" },
+      { phrase: "llamaindex", targetId: "langchain_vs_llama" },
+      { phrase: "deep data ingestion", targetId: "langchain_vs_llama" },
+      { phrase: "advanced retrieval algorithms", targetId: "langchain_vs_llama" },
+      { phrase: "react pattern", targetId: "agentic_patterns" },
+      { phrase: "plan and solve", targetId: "agentic_patterns" },
+      { phrase: "agentic patterns", targetId: "agentic_patterns" },
+      { phrase: "reasoning engine", targetId: "agentic_patterns" },
+      { phrase: "sub-steps", targetId: "agentic_patterns" },
+      { phrase: "event sourcing", targetId: "event_sourcing" },
+      { phrase: "cqrs", targetId: "event_sourcing" },
+      { phrase: "event driven", targetId: "event_sourcing" },
+      { phrase: "immutable log", targetId: "event_sourcing" },
+      { phrase: "read projections", targetId: "event_sourcing" },
+
+      // Engineering Culture
+      { phrase: "code review", targetId: "code_review" },
+      { phrase: "pr review", targetId: "code_review" },
+      { phrase: "pull request", targetId: "code_review" },
+      { phrase: "reviewing code", targetId: "code_review" },
+      { phrase: "positive intent", targetId: "code_review" },
+      { phrase: "e2e testing", targetId: "testing_strat" },
+      { phrase: "integration tests", targetId: "testing_strat" },
+      { phrase: "cypress", targetId: "testing_strat" },
+      { phrase: "selenium", targetId: "testing_strat" },
+      { phrase: "testing pyramid", targetId: "testing_strat" },
+      { phrase: "how do you choose a tech stack", targetId: "tech_stack" },
+      { phrase: "picking technologies", targetId: "tech_stack" },
+      { phrase: "stack choice", targetId: "tech_stack" },
+      { phrase: "resume driven development", targetId: "tech_stack" },
+      { phrase: "boring technology", targetId: "tech_stack" },
+
+      // Personal & Team Dynamics
+      { phrase: "burnout", targetId: "burnout" },
+      { phrase: "mental health", targetId: "burnout" },
+      { phrase: "work-life balance", targetId: "burnout" },
+      { phrase: "overworked", targetId: "burnout" },
+      { phrase: "exhausted", targetId: "burnout" },
+      { phrase: "onboarding", targetId: "onboarding" },
+      { phrase: "ramp up", targetId: "onboarding" },
+      { phrase: "new team", targetId: "onboarding" },
+      { phrase: "first 30 days", targetId: "onboarding" },
+      { phrase: "net-positive contributor", targetId: "onboarding" },
+      { phrase: "diversity", targetId: "diversity" },
+      { phrase: "inclusion", targetId: "diversity" },
+      { phrase: "belonging", targetId: "diversity" },
+      { phrase: "diverse teams", targetId: "diversity" },
+      { phrase: "psychological safety", targetId: "diversity" },
+      { phrase: "velocity", targetId: "agile_metrics" },
+      { phrase: "story points", targetId: "agile_metrics" },
+      { phrase: "burn down", targetId: "agile_metrics" },
+      { phrase: "agile metrics", targetId: "agile_metrics" },
+      { phrase: "predictable delivery", targetId: "agile_metrics" },
+
+      // Advanced Frontend & GraphQL
+      { phrase: "microfrontends", targetId: "microfrontends" },
+      { phrase: "module federation", targetId: "microfrontends" },
+      { phrase: "frontend architecture", targetId: "microfrontends" },
+      { phrase: "webpack module federation", targetId: "microfrontends" },
+      { phrase: "independent teams", targetId: "microfrontends" },
+      { phrase: "apollo federation", targetId: "graphql_fed" },
+      { phrase: "graphql federation", targetId: "graphql_fed" },
+      { phrase: "supergraph", targetId: "graphql_fed" },
+      { phrase: "subgraphs", targetId: "graphql_fed" },
+      { phrase: "unified api", targetId: "graphql_fed" },
+
+      // Compensation & Hobbies
+      { phrase: "negotiate salary", targetId: "salary_flex" },
+      { phrase: "flexible on compensation", targetId: "salary_flex" },
+      { phrase: "pay cut", targetId: "salary_flex" },
+      { phrase: "market value", targetId: "salary_flex" },
+      { phrase: "significant equity", targetId: "salary_flex" },
+      { phrase: "what are your hobbies", targetId: "hobby_deep" },
+      { phrase: "what do you do outside work", targetId: "hobby_deep" },
+      { phrase: "personal life", targetId: "hobby_deep" },
+      { phrase: "fitness", targetId: "hobby_deep" },
+      { phrase: "sci-fi", targetId: "hobby_deep" },
 
       // Software Engineering Practices
       { phrase: "can you write", targetId: "write" },
