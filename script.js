@@ -551,29 +551,51 @@ function initAITerminal() {
 
   // Simulated AI Knowledge Base
   const knowledge = [
+    // Agentic UI Controls
     { keys: ["dark", "light", "theme", "mode", "lights", "toggle"], text: "Executing Agent Tool: <strong>toggleTheme()</strong>... Switching website theme!", action: () => document.getElementById('theme-toggle').click() },
     { keys: ["scroll", "down", "bottom", "end", "footer"], text: "Executing Agent Tool: <strong>scrollToBottom()</strong>...", action: () => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }) },
     { keys: ["top", "up", "home"], text: "Executing Agent Tool: <strong>scrollToTop()</strong>...", action: () => window.scrollTo({ top: 0, behavior: 'smooth' }) },
     
-    { keys: ["accenture", "work", "experience", "job", "do", "role", "company", "career", "currently", "now", "working", "employed", "where"], text: "At Accenture, I work as an Applied AI Engineer. I engineered Python-based LLM workflow automation tools that increased throughput by 40%. I also built RAG pipelines reducing retrieval latency by 45% using LangChain and Pinecone, and architected multi-agent orchestration systems using LangGraph." },
-    { keys: ["rag", "pipeline", "search", "vector", "chromadb", "pinecone", "retrieval"], text: "I have deep expertise in RAG (Retrieval-Augmented Generation). For example, I built a Secure Enterprise RAG pipeline that achieves a RAGAS faithfulness of 0.88, sub-2s P95 latency, and implements strict Role-Based Access Control (RBAC)." },
-    { keys: ["skill", "skills", "tech", "stack", "technology", "technologies", "tool", "tools", "language", "languages", "know", "frameworks", "libraries"], text: "My main skills include <strong>AI/ML & Agents</strong> (OpenAI, Claude, LangChain, LangGraph, RAG, Pinecone, Agent Memory, MCP), <strong>Backend</strong> (Python, FastAPI, Node.js, Spring Boot), and <strong>DevOps/Cloud</strong> (Docker, AWS, MongoDB)." },
-    { keys: ["project", "projects", "github", "code", "portfolio", "build", "built", "made", "created"], text: "Check out my featured open source work! <br>- <strong>multi-tool-autonomous-ai-agent</strong>: A LangGraph agent with dynamic tool routing.<br>- <strong>secure-enterprise-rag</strong>: RAG pipeline with strict RBAC and ChromaDB." },
-    { keys: ["education", "degree", "college", "university", "study", "studies", "mtech", "btech", "graduated", "pes", "haldia", "school"], text: "I have a B.Tech in Computer Science from Haldia Institute of Technology, and I am currently pursuing an M.Tech in Data Science and Artificial Intelligence from PES University (2026-2028)." },
-    { keys: ["contact", "email", "hire", "reach", "message", "call"], text: "You can reach me via email at kunalkeshav2002@gmail.com, or connect with me on LinkedIn!" },
-    { keys: ["hi", "hello", "hey", "who", "what", "are", "you", "name", "whats", "whats"], text: "Hello! I am Kunal's simulated AI Agent. I can answer questions about his skills, experience, projects, or education. What would you like to know?" }
+    // Core Topics
+    { keys: ["accenture", "work", "experience", "job", "do", "role", "company", "career", "currently", "now", "working", "employed", "where", "professional"], text: "At Accenture, I work as an Applied AI Engineer. I engineered Python-based LLM workflow automation tools that increased throughput by 40%. I also built RAG pipelines reducing retrieval latency by 45% using LangChain and Pinecone, and architected multi-agent orchestration systems using LangGraph." },
+    { keys: ["rag", "pipeline", "search", "vector", "chromadb", "pinecone", "retrieval", "database", "embeddings"], text: "I have deep expertise in RAG (Retrieval-Augmented Generation). For example, I built a Secure Enterprise RAG pipeline that achieves a RAGAS faithfulness of 0.88, sub-2s P95 latency, and implements strict Role-Based Access Control (RBAC)." },
+    { keys: ["skill", "skills", "tech", "stack", "technology", "technologies", "tool", "tools", "language", "languages", "know", "frameworks", "libraries", "python", "javascript", "react"], text: "My main skills include <strong>AI/ML & Agents</strong> (OpenAI, Claude, LangChain, LangGraph, RAG, Pinecone, Agent Memory, MCP), <strong>Backend</strong> (Python, FastAPI, Node.js, Spring Boot), and <strong>DevOps/Cloud</strong> (Docker, AWS, MongoDB)." },
+    { keys: ["project", "projects", "github", "code", "portfolio", "build", "built", "made", "created", "source", "open"], text: "Check out my featured open source work! <br>- <strong>multi-tool-autonomous-ai-agent</strong>: A LangGraph agent with dynamic tool routing.<br>- <strong>secure-enterprise-rag</strong>: RAG pipeline with strict RBAC and ChromaDB." },
+    { keys: ["education", "degree", "college", "university", "study", "studies", "mtech", "btech", "graduated", "pes", "haldia", "school", "bachelors", "masters"], text: "I have a B.Tech in Computer Science from Haldia Institute of Technology, and I am currently pursuing an M.Tech in Data Science and Artificial Intelligence from PES University (2026-2028)." },
+    
+    // Additional Recruiter Topics
+    { keys: ["location", "live", "city", "stay", "bangalore", "bengaluru", "from", "based"], text: "I am currently based in Bengaluru, India." },
+    { keys: ["resume", "cv", "download", "document"], text: "You can download my full resume by clicking the 'Resume' button in the top navigation bar, or just let me know if you want me to summarize my experience!" },
+    { keys: ["hire", "hiring", "freelance", "opportunity", "opportunities", "open", "available", "availability"], text: "I am always open to discussing new opportunities, especially roles involving Agentic AI, LLMs, and Backend Engineering. Feel free to email me!" },
+    { keys: ["llm", "llms", "openai", "claude", "gpt", "model", "models", "prompt", "prompting"], text: "I heavily use OpenAI (GPT-4) and Anthropic (Claude) APIs. I specialize in prompt engineering, function calling (tool use), and chaining these models into autonomous agents using LangGraph." },
+    
+    // Contact & Greetings
+    { keys: ["contact", "email", "reach", "message", "call", "connect", "linkedin", "twitter"], text: "You can reach me via email at kunalkeshav2002@gmail.com, or connect with me on LinkedIn!" },
+    { keys: ["hi", "hello", "hey", "who", "what", "are", "you", "name", "whats", "whats", "greetings"], text: "Hello! I am Kunal's simulated AI Agent. I can answer questions about his skills, experience, projects, or education. What would you like to know?" }
   ];
 
   function getBotResponse(query) {
-    // Strip punctuation to improve matching (e.g. "what's" -> "whats")
+    // Strip punctuation to improve matching
     query = query.toLowerCase().replace(/[^\w\s]/g, '');
     
     // Hardcoded exact phrase overrides for perfect matching
-    if (query === "what you do" || query === "what do you do" || query === "what are you doing") {
-      return { text: knowledge.find(k => k.keys.includes("work")).text };
-    }
-    if (query === "who are you" || query === "what are you") {
-      return { text: knowledge.find(k => k.keys.includes("hello")).text };
+    const exactMatches = {
+      "what you do": "work",
+      "what do you do": "work",
+      "what are you doing": "work",
+      "who are you": "hello",
+      "what are you": "hello",
+      "where do you live": "location",
+      "where are you from": "location",
+      "are you looking for a job": "hire",
+      "how to contact you": "contact",
+      "what is your name": "hello"
+    };
+
+    if (exactMatches[query]) {
+      const targetKey = exactMatches[query];
+      const match = knowledge.find(k => k.keys.includes(targetKey));
+      if (match) return { text: match.text, action: match.action };
     }
     
     let bestMatch = null;
@@ -587,7 +609,7 @@ function initAITerminal() {
           // Weight specific intent nouns VERY HIGH (10)
           let weight = 10;
           // Generic question words get very low weight (1)
-          if (["what", "whats", "who", "are", "you", "now", "where", "do", "know"].includes(key)) {
+          if (["what", "whats", "who", "are", "you", "now", "where", "do", "know", "how", "is", "a", "for", "to"].includes(key)) {
             weight = 1;
           }
           score += weight;
