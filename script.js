@@ -555,17 +555,18 @@ function initAITerminal() {
     { keys: ["scroll", "down", "bottom", "end", "footer"], text: "Executing Agent Tool: <strong>scrollToBottom()</strong>...", action: () => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }) },
     { keys: ["top", "up", "home"], text: "Executing Agent Tool: <strong>scrollToTop()</strong>...", action: () => window.scrollTo({ top: 0, behavior: 'smooth' }) },
     
-    { keys: ["accenture", "work", "experience", "job", "do", "role", "company", "career"], text: "At Accenture, I work as an Applied AI Engineer. I engineered Python-based LLM workflow automation tools that increased throughput by 40%. I also built RAG pipelines reducing retrieval latency by 45% using LangChain and Pinecone, and architected multi-agent orchestration systems using LangGraph." },
+    { keys: ["accenture", "work", "experience", "job", "do", "role", "company", "career", "currently", "now", "working", "employed", "where"], text: "At Accenture, I work as an Applied AI Engineer. I engineered Python-based LLM workflow automation tools that increased throughput by 40%. I also built RAG pipelines reducing retrieval latency by 45% using LangChain and Pinecone, and architected multi-agent orchestration systems using LangGraph." },
     { keys: ["rag", "pipeline", "search", "vector", "chromadb", "pinecone", "retrieval"], text: "I have deep expertise in RAG (Retrieval-Augmented Generation). For example, I built a Secure Enterprise RAG pipeline that achieves a RAGAS faithfulness of 0.88, sub-2s P95 latency, and implements strict Role-Based Access Control (RBAC)." },
-    { keys: ["skill", "skills", "tech", "stack", "technology", "technologies", "tool", "tools", "language", "languages", "know"], text: "My main skills include <strong>AI/ML & Agents</strong> (OpenAI, Claude, LangChain, LangGraph, RAG, Pinecone, Agent Memory, MCP), <strong>Backend</strong> (Python, FastAPI, Node.js, Spring Boot), and <strong>DevOps/Cloud</strong> (Docker, AWS, MongoDB)." },
-    { keys: ["project", "projects", "github", "code", "portfolio", "build", "built", "made"], text: "Check out my featured open source work! <br>- <strong>multi-tool-autonomous-ai-agent</strong>: A LangGraph agent with dynamic tool routing.<br>- <strong>secure-enterprise-rag</strong>: RAG pipeline with strict RBAC and ChromaDB." },
-    { keys: ["education", "degree", "college", "university", "study", "studies", "mtech", "btech", "graduated", "pes", "haldia"], text: "I have a B.Tech in Computer Science from Haldia Institute of Technology, and I am currently pursuing an M.Tech in Data Science and Artificial Intelligence from PES University (2026-2028)." },
+    { keys: ["skill", "skills", "tech", "stack", "technology", "technologies", "tool", "tools", "language", "languages", "know", "frameworks", "libraries"], text: "My main skills include <strong>AI/ML & Agents</strong> (OpenAI, Claude, LangChain, LangGraph, RAG, Pinecone, Agent Memory, MCP), <strong>Backend</strong> (Python, FastAPI, Node.js, Spring Boot), and <strong>DevOps/Cloud</strong> (Docker, AWS, MongoDB)." },
+    { keys: ["project", "projects", "github", "code", "portfolio", "build", "built", "made", "created"], text: "Check out my featured open source work! <br>- <strong>multi-tool-autonomous-ai-agent</strong>: A LangGraph agent with dynamic tool routing.<br>- <strong>secure-enterprise-rag</strong>: RAG pipeline with strict RBAC and ChromaDB." },
+    { keys: ["education", "degree", "college", "university", "study", "studies", "mtech", "btech", "graduated", "pes", "haldia", "school"], text: "I have a B.Tech in Computer Science from Haldia Institute of Technology, and I am currently pursuing an M.Tech in Data Science and Artificial Intelligence from PES University (2026-2028)." },
     { keys: ["contact", "email", "hire", "reach", "message", "call"], text: "You can reach me via email at kunalkeshav2002@gmail.com, or connect with me on LinkedIn!" },
-    { keys: ["hi", "hello", "hey", "who", "what", "are", "you", "name"], text: "Hello! I am Kunal's simulated AI Agent. I can answer questions about his skills, experience, projects, or education. What would you like to know?" }
+    { keys: ["hi", "hello", "hey", "who", "what", "are", "you", "name", "whats", "whats"], text: "Hello! I am Kunal's simulated AI Agent. I can answer questions about his skills, experience, projects, or education. What would you like to know?" }
   ];
 
   function getBotResponse(query) {
-    query = query.toLowerCase();
+    // Strip punctuation to improve matching (e.g. "what's" -> "whats")
+    query = query.toLowerCase().replace(/[^\w\s]/g, '');
     
     let bestMatch = null;
     let highestScore = 0;
@@ -575,8 +576,8 @@ function initAITerminal() {
       let score = 0;
       for (let key of item.keys) {
         if (new RegExp('\\b' + key + '\\b').test(query)) {
-          // Weight specific nouns higher than generic words like "what" or "do"
-          let weight = (key === "what" || key === "who" || key === "do" || key === "are" || key === "you") ? 1 : 3;
+          // Weight specific nouns higher than generic words
+          let weight = (key === "what" || key === "whats" || key === "who" || key === "do" || key === "are" || key === "you" || key === "now" || key === "where") ? 1 : 3;
           score += weight;
         }
       }
