@@ -364,3 +364,43 @@ document.addEventListener('DOMContentLoaded', () => {
   initAboutMore();
   initKeyboard();
 });
+
+/* ──────────────────────────────────────────────────────────
+   DARK MODE TOGGLE
+   ────────────────────────────────────────────────────────── */
+function initThemeToggle() {
+  const themeToggleBtn = document.getElementById('theme-toggle');
+  if (!themeToggleBtn) return;
+
+  // Check for saved user preference, if any, on load of the website
+  if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+  } else {
+      document.documentElement.classList.remove('dark');
+  }
+
+  themeToggleBtn.addEventListener('click', function() {
+      // if set via local storage previously
+      if (localStorage.getItem('color-theme')) {
+          if (localStorage.getItem('color-theme') === 'light') {
+              document.documentElement.classList.add('dark');
+              localStorage.setItem('color-theme', 'dark');
+          } else {
+              document.documentElement.classList.remove('dark');
+              localStorage.setItem('color-theme', 'light');
+          }
+      // if NOT set via local storage previously
+      } else {
+          if (document.documentElement.classList.contains('dark')) {
+              document.documentElement.classList.remove('dark');
+              localStorage.setItem('color-theme', 'light');
+          } else {
+              document.documentElement.classList.add('dark');
+              localStorage.setItem('color-theme', 'dark');
+          }
+      }
+  });
+}
+
+// Ensure it runs on DOM load
+document.addEventListener('DOMContentLoaded', initThemeToggle);
