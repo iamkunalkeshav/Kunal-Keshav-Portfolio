@@ -567,75 +567,81 @@ function initAITerminal() {
     },
     
     // Core Topics
-    { keys: ["accenture", "work", "experience", "job", "jobs", "do", "doing", "did", "does", "role", "company", "career", "currently", "now", "working", "employed", "where", "professional"], text: "At Accenture, I work as an Applied AI Engineer. I engineered Python-based LLM workflow automation tools that increased throughput by 40%. I also built RAG pipelines reducing retrieval latency by 45% using LangChain and Pinecone, and architected multi-agent orchestration systems using LangGraph." },
-    { keys: ["rag", "pipeline", "search", "vector", "chromadb", "pinecone", "retrieval", "database", "embeddings"], text: "I have deep expertise in RAG (Retrieval-Augmented Generation). For example, I built a Secure Enterprise RAG pipeline that achieves a RAGAS faithfulness of 0.88, sub-2s P95 latency, and implements strict Role-Based Access Control (RBAC)." },
-    { keys: ["skill", "skills", "tech", "stack", "technology", "technologies", "tool", "tools", "language", "languages", "know", "frameworks", "libraries", "python", "javascript", "react"], text: "My main skills include <strong>AI/ML & Agents</strong> (OpenAI, Claude, LangChain, LangGraph, RAG, Pinecone, Agent Memory, MCP), <strong>Backend</strong> (Python, FastAPI, Node.js, Spring Boot), and <strong>DevOps/Cloud</strong> (Docker, AWS, MongoDB)." },
-    { keys: ["project", "projects", "github", "code", "portfolio", "build", "building", "built", "make", "making", "made", "create", "creating", "created", "source", "open"], text: "Check out my featured open source work! <br>- <strong>multi-tool-autonomous-ai-agent</strong>: A LangGraph agent with dynamic tool routing.<br>- <strong>secure-enterprise-rag</strong>: RAG pipeline with strict RBAC and ChromaDB." },
-    { keys: ["education", "degree", "college", "university", "study", "studies", "studying", "mtech", "btech", "graduated", "pes", "haldia", "school", "bachelors", "masters"], text: "I have a B.Tech in Computer Science from Haldia Institute of Technology, and I am currently pursuing an M.Tech in Data Science and Artificial Intelligence from PES University (2026-2028)." },
+    { id: "work", keys: ["accenture", "work", "experience", "job", "jobs", "role", "company", "career", "currently", "working", "employed", "professional", "living"], text: "At Accenture, I work as an Applied AI Engineer. I engineered Python-based LLM workflow automation tools that increased throughput by 40%. I also built RAG pipelines reducing retrieval latency by 45% using LangChain and Pinecone, and architected multi-agent orchestration systems using LangGraph." },
+    { id: "rag", keys: ["rag", "pipeline", "search", "vector", "chromadb", "pinecone", "retrieval", "database", "embeddings"], text: "I have deep expertise in RAG (Retrieval-Augmented Generation). For example, I built a Secure Enterprise RAG pipeline that achieves a RAGAS faithfulness of 0.88, sub-2s P95 latency, and implements strict Role-Based Access Control (RBAC)." },
+    { id: "skills", keys: ["skill", "skills", "tech", "stack", "technology", "technologies", "tool", "tools", "language", "languages", "know", "frameworks", "libraries", "python", "javascript", "react", "ml", "ai", "machine", "learning", "data"], text: "My main skills include <strong>AI/ML & Agents</strong> (OpenAI, Claude, LangChain, LangGraph, RAG, Pinecone, Agent Memory, MCP), <strong>Backend</strong> (Python, FastAPI, Node.js, Spring Boot), and <strong>DevOps/Cloud</strong> (Docker, AWS, MongoDB)." },
+    { id: "projects", keys: ["project", "projects", "github", "code", "portfolio", "build", "building", "built", "make", "making", "made", "create", "creating", "created", "source", "open"], text: "Check out my featured open source work! <br>- <strong>multi-tool-autonomous-ai-agent</strong>: A LangGraph agent with dynamic tool routing.<br>- <strong>secure-enterprise-rag</strong>: RAG pipeline with strict RBAC and ChromaDB." },
+    { id: "education", keys: ["education", "degree", "college", "university", "study", "studies", "studying", "mtech", "btech", "graduated", "pes", "haldia", "school", "bachelors", "masters"], text: "I have a B.Tech in Computer Science from Haldia Institute of Technology, and I am currently pursuing an M.Tech in Data Science and Artificial Intelligence from PES University (2026-2028)." },
     
     // HR & Logistics
-    { keys: ["location", "live", "living", "city", "stay", "staying", "bangalore", "bengaluru", "from", "based"], text: "I am currently based in Bengaluru, India." },
-    { keys: ["resume", "cv", "download", "document"], text: "You can download my full resume by clicking the 'Resume' button in the top navigation bar, or just let me know if you want me to summarize my experience!" },
-    { keys: ["hire", "hiring", "freelance", "opportunity", "opportunities", "open", "available", "availability"], text: "I am always open to discussing new opportunities, especially roles involving Agentic AI, LLMs, and Backend Engineering. Feel free to email me!" },
-    { keys: ["remote", "relocate", "relocation", "visa"], text: "I am open to remote work and willing to discuss relocation depending on the opportunity and role!" },
-    { keys: ["salary", "compensation", "rate", "pay", "rates", "expected", "expectation"], text: "My salary expectations are negotiable and depend on the scope of the role, benefits, and the exciting problems I'd get to solve. Let's discuss!" },
-    { keys: ["notice", "start", "when", "join"], text: "My notice period is standard, but I am flexible and can discuss a start date that works best for the team." },
+    { id: "location", keys: ["location", "live", "city", "stay", "staying", "bangalore", "bengaluru", "based"], text: "I am currently based in Bengaluru, India." },
+    { id: "resume", keys: ["resume", "cv", "download", "document"], text: "You can download my full resume by clicking the 'Resume' button in the top navigation bar, or just let me know if you want me to summarize my experience!" },
+    { id: "hire", keys: ["hire", "hiring", "freelance", "opportunity", "opportunities", "open", "available", "availability"], text: "I am always open to discussing new opportunities, especially roles involving Agentic AI, LLMs, and Backend Engineering. Feel free to email me!" },
+    { id: "remote", keys: ["remote", "relocate", "relocation", "visa"], text: "I am open to remote work and willing to discuss relocation depending on the opportunity and role!" },
+    { id: "salary", keys: ["salary", "compensation", "rate", "pay", "rates", "expected", "expectation"], text: "My salary expectations are negotiable and depend on the scope of the role, benefits, and the exciting problems I'd get to solve. Let's discuss!" },
+    { id: "notice", keys: ["notice", "start", "when", "join"], text: "My notice period is standard, but I am flexible and can discuss a start date that works best for the team." },
 
     // Technical / Behavioral
-    { keys: ["llm", "llms", "openai", "claude", "gpt", "model", "models", "prompt", "prompting"], text: "I heavily use OpenAI (GPT-4) and Anthropic (Claude) APIs. I specialize in prompt engineering, function calling (tool use), and chaining these models into autonomous agents using LangGraph." },
-    { keys: ["strength", "strengths", "hire", "best", "quality", "why"], text: "My biggest strength is bridging the gap between research-level AI and production-grade backend engineering. I don't just build Jupyter notebooks; I deploy scalable, secure Agentic architectures." },
-    { keys: ["weakness", "weaknesses", "bad", "worst"], text: "Sometimes I get too deeply invested in optimizing performance (like writing custom physics for a background canvas) when a simpler solution would suffice, but I'm learning to balance perfection with speed!" },
-    { keys: ["built", "how", "framework", "vanilla", "architecture"], text: "Fun fact: This entire website (including me, the AI) is built with 100% Vanilla HTML, CSS, and JavaScript. No external libraries, no backend APIs, no React. Just raw DOM manipulation and optimized NLP parsing!" },
-    
+    { id: "llm", keys: ["llm", "llms", "openai", "claude", "gpt", "model", "models", "prompt", "prompting"], text: "I heavily use OpenAI (GPT-4) and Anthropic (Claude) APIs. I specialize in prompt engineering, function calling (tool use), and chaining these models into autonomous agents using LangGraph." },
+    { id: "strength", keys: ["strength", "strengths", "best", "quality", "proud"], text: "My biggest strength, and what I'm most proud of, is bridging the gap between research-level AI and production-grade backend engineering. I don't just build Jupyter notebooks; I deploy scalable, secure Agentic architectures." },
+    { id: "weakness", keys: ["weakness", "weaknesses", "bad", "worst"], text: "Sometimes I get too deeply invested in optimizing performance (like writing custom physics for a background canvas) when a simpler solution would suffice, but I'm learning to balance perfection with speed!" },
+    { id: "built", keys: ["how", "framework", "vanilla", "architecture"], text: "Fun fact: This entire website (including me, the AI) is built with 100% Vanilla HTML, CSS, and JavaScript. No external libraries, no backend APIs, no React. Just raw DOM manipulation and optimized NLP parsing!" },
+    { id: "whyai", keys: ["choose", "passion", "fascinated", "interest"], text: "I chose AI because I am fascinated by autonomous systems. Building programs that can reason, use tools, and solve open-ended problems is the most exciting frontier in software engineering right now." },
+
     // Casual / Fun
-    { keys: ["chatgpt", "skynet", "ai", "real", "human", "bot"], text: "I am not ChatGPT or Skynet! I am a highly optimized, client-side NLP simulation written entirely in JavaScript by Kunal to demonstrate his engineering skills." },
-    { keys: ["joke", "funny", "laugh", "humor"], text: [
+    { id: "chatgpt", keys: ["chatgpt", "skynet", "real", "human", "bot"], text: "I am not ChatGPT or Skynet! I am a highly optimized, client-side NLP simulation written entirely in JavaScript by Kunal to demonstrate his engineering skills." },
+    { id: "joke", keys: ["joke", "funny", "laugh", "humor"], text: [
       "Why do AI Engineers prefer dark mode? Because light attracts bugs!",
       "There are 10 types of people in the world: those who understand binary, and those who don't.",
       "Why did the programmer quit his job? Because he didn't get arrays.",
       "A SQL query goes into a bar, walks up to two tables and asks... 'Can I join you?'",
       "How many programmers does it take to change a light bulb? None, that's a hardware problem."
     ] },
-    { keys: ["fun", "hobbies", "outside", "free", "time"], text: "When I'm not building autonomous agents or architecting backends, I enjoy staying updated with the latest AI papers, exploring open-source projects, and continuously learning new paradigms." },
-    { keys: ["age", "old", "born"], text: "I am a timeless AI agent, but Kunal was born in 2002." },
-    { keys: ["write", "code", "program"], text: "I am a frontend simulation so I can't write code right now, but Kunal writes production-ready Python, JavaScript, and Java every single day. You should hire him!" },
+    { id: "fun", keys: ["fun", "hobbies", "outside", "free", "time"], text: "When I'm not building autonomous agents or architecting backends, I enjoy staying updated with the latest AI papers, exploring open-source projects, and continuously learning new paradigms." },
+    { id: "age", keys: ["age", "old", "born"], text: "I am a timeless AI agent, but Kunal was born in 2002." },
+    { id: "write", keys: ["write", "program"], text: "I am a frontend simulation so I can't write code right now, but Kunal writes production-ready Python, JavaScript, and Java every single day. You should hire him!" },
 
     // Contact & Greetings
-    { keys: ["contact", "email", "reach", "message", "call", "connect", "linkedin", "twitter"], text: "You can reach me via email at kunalkeshav2002@gmail.com, or connect with me on LinkedIn!" },
-    { keys: ["hi", "hello", "hey", "who", "what", "are", "you", "name", "whats", "greetings"], text: "Hello! I am Kunal's simulated AI Agent. I can answer questions about his skills, experience, projects, or education. What would you like to know?" }
+    { id: "contact", keys: ["contact", "email", "reach", "message", "call", "connect", "linkedin", "twitter"], text: "You can reach me via email at kunalkeshav2002@gmail.com, or connect with me on LinkedIn!" },
+    { id: "hello", keys: ["hi", "hello", "hey", "greetings"], text: "Hello! I am Kunal's simulated AI Agent. I can answer questions about his skills, experience, projects, or education. What would you like to know?" }
   ];
 
   function getBotResponse(query) {
-    // Strip punctuation, trim whitespace, and normalize spaces to improve matching
-    query = query.toLowerCase().replace(/[^\w\s]/g, '').trim().replace(/\s+/g, ' ');
+    const rawQuery = query.toLowerCase();
+    query = rawQuery.replace(/[^\w\s]/g, '').trim().replace(/\s+/g, ' ');
     
-    // Hardcoded exact phrase overrides for perfect matching
-    const exactMatches = {
-      "what you do": "work",
-      "what do you do": "work",
-      "what are you doing": "work",
-      "what are u doing": "work",
-      "what you are building": "project",
-      "whats you are building": "project",
-      "what are you building": "project",
-      "who are you": "hello",
-      "what are you": "hello",
-      "where do you live": "location",
-      "where are you from": "location",
-      "are you looking for a job": "hire",
-      "how to contact you": "contact",
-      "what is your name": "hello",
-      "how did you build this": "built",
-      "why should we hire you": "strength",
-      "tell me a joke": "joke"
-    };
+    // Substring Phrase Overrides - More robust than exact matches!
+    const phraseMap = [
+      { phrase: "for a living", targetId: "work" },
+      { phrase: "what do you do", targetId: "work" },
+      { phrase: "what you do", targetId: "work" },
+      { phrase: "what are you doing", targetId: "work" },
+      { phrase: "what you are building", targetId: "projects" },
+      { phrase: "what are you building", targetId: "projects" },
+      { phrase: "where do you live", targetId: "location" },
+      { phrase: "where are you from", targetId: "location" },
+      { phrase: "where are you based", targetId: "location" },
+      { phrase: "proud of", targetId: "strength" },
+      { phrase: "why ai", targetId: "whyai" },
+      { phrase: "choose ai", targetId: "whyai" },
+      { phrase: "machine learning", targetId: "skills" },
+      { phrase: "do you know", targetId: "skills" },
+      { phrase: "can you write", targetId: "write" },
+      { phrase: "why should we hire you", targetId: "strength" },
+      { phrase: "tell me a joke", targetId: "joke" },
+      { phrase: "how did you build", targetId: "built" },
+      { phrase: "what is your name", targetId: "hello" },
+      { phrase: "who are you", targetId: "hello" },
+      { phrase: "what are you", targetId: "hello" }
+    ];
 
-    if (exactMatches[query]) {
-      const targetKey = exactMatches[query];
-      const match = knowledge.find(k => k.keys.includes(targetKey));
-      if (match) {
-        let responseText = Array.isArray(match.text) ? match.text[Math.floor(Math.random() * match.text.length)] : match.text;
-        return { text: responseText, action: match.action };
+    for (let p of phraseMap) {
+      if (query.includes(p.phrase) || rawQuery.includes(p.phrase)) {
+        const match = knowledge.find(k => k.id === p.targetId);
+        if (match) {
+          let responseText = Array.isArray(match.text) ? match.text[Math.floor(Math.random() * match.text.length)] : match.text;
+          return { text: responseText, action: match.action };
+        }
       }
     }
     
@@ -647,16 +653,9 @@ function initAITerminal() {
       let score = 0;
       for (let key of item.keys) {
         if (new RegExp('\\b' + key + '\\b').test(query)) {
-          // Weight specific intent nouns VERY HIGH (10)
-          let weight = 10;
-          // Generic question words get very low weight (1)
-          if (["what", "whats", "who", "are", "you", "now", "where", "do", "know", "how", "is", "a", "for", "to", "time"].includes(key)) {
-            weight = 1;
-          }
-          score += weight;
+          score += 10; // All explicitly defined keys are now strong intent indicators
         }
       }
-      
       if (score > highestScore) {
         highestScore = score;
         bestMatch = item;
