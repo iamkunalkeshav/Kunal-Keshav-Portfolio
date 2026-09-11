@@ -549,18 +549,19 @@ function initAITerminal() {
 
   // Simulated AI Logic
   const responses = [
-    { keys: ["accenture", "work", "experience"], text: "At Accenture, I work as an Applied AI Engineer. I engineered Python-based LLM workflow automation tools that increased throughput by 40%. I also built RAG pipelines reducing retrieval latency by 45% using LangChain and Pinecone, and architected multi-agent orchestration systems using LangGraph." },
-    { keys: ["rag", "pipeline", "search"], text: "I have deep expertise in RAG (Retrieval-Augmented Generation). For example, I built a Secure Enterprise RAG pipeline that achieves a RAGAS faithfulness of 0.88, sub-2s P95 latency, and implements strict Role-Based Access Control (RBAC)." },
-    { keys: ["skills", "tech", "stack"], text: "My main skills include <strong>AI/ML & Agents</strong> (OpenAI, Claude, LangChain, LangGraph, RAG, Pinecone, Agent Memory, MCP), <strong>Backend</strong> (Python, FastAPI, Node.js, Spring Boot), and <strong>DevOps/Cloud</strong> (Docker, AWS, MongoDB)." },
-    { keys: ["project", "github"], text: "Check out my featured open source work! <br>- <strong>multi-tool-autonomous-ai-agent</strong>: A LangGraph agent with dynamic tool routing.<br>- <strong>secure-enterprise-rag</strong>: RAG pipeline with strict RBAC and ChromaDB." },
-    { keys: ["education", "degree"], text: "I have a Bachelor of Technology in Computer Science from Haldia Institute of Technology, and I am pursuing a Master of Technology in Data Science and Artificial Intelligence from PES University (2026-2028)." },
-    { keys: ["hi", "hello", "hey"], text: "Hello! I am Kunal's simulated AI Agent. I can answer questions about his skills, experience, projects, or education. What would you like to know?" }
+    { keys: ["accenture", "work", "experience", "job"], text: "At Accenture, I work as an Applied AI Engineer. I engineered Python-based LLM workflow automation tools that increased throughput by 40%. I also built RAG pipelines reducing retrieval latency by 45% using LangChain and Pinecone, and architected multi-agent orchestration systems using LangGraph." },
+    { keys: ["rag", "pipeline", "search", "vector"], text: "I have deep expertise in RAG (Retrieval-Augmented Generation). For example, I built a Secure Enterprise RAG pipeline that achieves a RAGAS faithfulness of 0.88, sub-2s P95 latency, and implements strict Role-Based Access Control (RBAC)." },
+    { keys: ["skill", "skills", "tech", "stack", "technology", "technologies", "tool", "tools"], text: "My main skills include <strong>AI/ML & Agents</strong> (OpenAI, Claude, LangChain, LangGraph, RAG, Pinecone, Agent Memory, MCP), <strong>Backend</strong> (Python, FastAPI, Node.js, Spring Boot), and <strong>DevOps/Cloud</strong> (Docker, AWS, MongoDB)." },
+    { keys: ["project", "projects", "github", "code"], text: "Check out my featured open source work! <br>- <strong>multi-tool-autonomous-ai-agent</strong>: A LangGraph agent with dynamic tool routing.<br>- <strong>secure-enterprise-rag</strong>: RAG pipeline with strict RBAC and ChromaDB." },
+    { keys: ["education", "degree", "college", "university", "study", "studies"], text: "I have a Bachelor of Technology in Computer Science from Haldia Institute of Technology, and I am pursuing a Master of Technology in Data Science and Artificial Intelligence from PES University (2026-2028)." },
+    { keys: ["contact", "email", "hire", "reach"], text: "You can reach me via email at kunalkeshav2002@gmail.com, or connect with me on LinkedIn!" },
+    { keys: ["hi", "hello", "hey", "who", "what"], text: "Hello! I am Kunal's simulated AI Agent. I can answer questions about his skills, experience, projects, or education. What would you like to know?" }
   ];
 
   function getBotResponse(query) {
     query = query.toLowerCase();
     for (let r of responses) {
-      if (r.keys.some(k => query.includes(k))) {
+      if (r.keys.some(k => new RegExp('\\b' + k + '\\b').test(query))) {
         return r.text;
       }
     }
