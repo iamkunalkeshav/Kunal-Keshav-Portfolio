@@ -1051,7 +1051,7 @@ function initAITerminal() {
         const match = knowledge.find(k => k.id === p.targetId);
         if (match) {
           let responseText = Array.isArray(match.text) ? match.text[Math.floor(Math.random() * match.text.length)] : match.text;
-          return { text: responseText, action: match.action };
+          return { text: responseText, action: match.action, targetId: match.id };
         }
       }
     }
@@ -1075,10 +1075,10 @@ function initAITerminal() {
 
     if (bestMatch && highestScore > 0) {
       let responseText = Array.isArray(bestMatch.text) ? bestMatch.text[Math.floor(Math.random() * bestMatch.text.length)] : bestMatch.text;
-      return { text: responseText, action: bestMatch.action };
+      return { text: responseText, action: bestMatch.action, targetId: bestMatch.id };
     }
 
-    return { text: "I'm a simulated agent trained on Kunal's resume, so I don't know the answer to that specific question. Try asking about his <strong>skills</strong>, <strong>Accenture experience</strong>, or <strong>projects</strong>!" };
+    return { text: "I'm a simulated agent trained on Kunal's resume, so I don't know the answer to that specific question. Try asking about his <strong>skills</strong>, <strong>Accenture experience</strong>, or <strong>projects</strong>!", targetId: "unknown" };
   }
 
   function appendMessage(text, sender, callback) {
@@ -1120,16 +1120,51 @@ function initAITerminal() {
     }
   }
 
-  function handleInput(text) {
+  let sysLogsEnabled = false;
+  const sysLogCheckbox = document.getElementById('sys-log-checkbox');
+  if (sysLogCheckbox) {
+    sysLogCheckbox.addEventListener('change', (e) => {
+      sysLogsEnabled = e.target.checked;
+      const label = document.getElementById('sys-log-label');
+      const toggleLabel = document.querySelector('.sys-log-toggle');
+      if (sysLogsEnabled) {
+        label.textContent = '[SYS_LOGS: ON]';
+        toggleLabel.classList.add('active');
+      } else {
+        label.textContent = '[SYS_LOGS: OFF]';
+        toggleLabel.classList.remove('active');
+      }
+    });
+  }
+
+  const delay = ms => new Promise(res => setTimeout(res, ms));
+
+  async function handleInput(text) {
     if (!text.trim()) return;
     appendMessage(text, 'user');
     input.value = '';
     
-    // Simulate network delay
-    setTimeout(() => {
-      const response = getBotResponse(text);
-      appendMessage(response.text, 'bot', response.action);
-    }, 400);
+    const response = getBotResponse(text);
+
+    if (sysLogsEnabled) {
+      const logDiv = document.createElement('div');
+      logDiv.className = 'sys-log-stream';
+      chatWindow.appendChild(logDiv);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+
+      logDiv.textContent = `< sys > Parsing input: "${text}"...`;
+      await delay(200);
+      logDiv.textContent += `\n< sys > Scanning 200+ intent maps...`;
+      await delay(200);
+      logDiv.textContent += `\n< sys > Match found: targetId='${response.targetId}'`;
+      await delay(200);
+      logDiv.textContent += `\n< sys > Retrieving knowledge chunk... Streaming response...`;
+      await delay(300);
+    } else {
+      await delay(400); // normal network delay
+    }
+    
+    appendMessage(response.text, 'bot', response.action);
   }
 
   input.addEventListener('keypress', (e) => {
