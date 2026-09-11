@@ -1736,6 +1736,10 @@ html.dark .nav-link:hover, html.dark .nav-link.active {
 /* ============================================================
    PRINT STYLES
    ============================================================ */
+@media print {
+  #bottom-nav, #intro-screen, .ai-toggle-btn, .ai-modal, #neural-canvas { display: none !important; }
+  .container { padding: 3rem; }
+  .reveal { opacity: 1 !important; transform: none !important; }
 }
 
 /* ============================================================
