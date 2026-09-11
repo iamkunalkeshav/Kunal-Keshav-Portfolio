@@ -568,6 +568,14 @@ function initAITerminal() {
     // Strip punctuation to improve matching (e.g. "what's" -> "whats")
     query = query.toLowerCase().replace(/[^\w\s]/g, '');
     
+    // Hardcoded exact phrase overrides for perfect matching
+    if (query === "what you do" || query === "what do you do" || query === "what are you doing") {
+      return { text: knowledge.find(k => k.keys.includes("work")).text };
+    }
+    if (query === "who are you" || query === "what are you") {
+      return { text: knowledge.find(k => k.keys.includes("hello")).text };
+    }
+    
     let bestMatch = null;
     let highestScore = 0;
 
@@ -576,8 +584,12 @@ function initAITerminal() {
       let score = 0;
       for (let key of item.keys) {
         if (new RegExp('\\b' + key + '\\b').test(query)) {
-          // Weight specific nouns higher than generic words
-          let weight = (key === "what" || key === "whats" || key === "who" || key === "do" || key === "are" || key === "you" || key === "now" || key === "where") ? 1 : 3;
+          // Weight specific intent nouns VERY HIGH (10)
+          let weight = 10;
+          // Generic question words get very low weight (1)
+          if (["what", "whats", "who", "are", "you", "now", "where", "do", "know"].includes(key)) {
+            weight = 1;
+          }
           score += weight;
         }
       }
