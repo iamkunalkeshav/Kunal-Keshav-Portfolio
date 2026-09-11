@@ -472,8 +472,9 @@ function initNeuralCanvas() {
       // Connect to mouse
       let dxMouse = mouse.x - p.x;
       let dyMouse = mouse.y - p.y;
-      let distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
-      if (distMouse < 150) {
+      let distSqMouse = dxMouse * dxMouse + dyMouse * dyMouse;
+      if (distSqMouse < 22500) { // 150 * 150
+        let distMouse = Math.sqrt(distSqMouse);
         ctx.beginPath();
         ctx.moveTo(p.x, p.y);
         ctx.lineTo(mouse.x, mouse.y);
@@ -490,9 +491,10 @@ function initNeuralCanvas() {
         let p2 = particles[j];
         let dx = p.x - p2.x;
         let dy = p.y - p2.y;
-        let dist = Math.sqrt(dx*dx + dy*dy);
+        let distSq = dx*dx + dy*dy;
         
-        if (dist < 100) {
+        if (distSq < 10000) { // 100 * 100
+          let dist = Math.sqrt(distSq);
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
           ctx.lineTo(p2.x, p2.y);
@@ -577,23 +579,31 @@ function initAITerminal() {
       msg.textContent = text;
       chatWindow.scrollTop = chatWindow.scrollHeight;
     } else {
-      // Typewriter effect for bot
+      // Optimized Typewriter effect
       let i = 0;
+      let currentHTML = '';
       msg.innerHTML = '';
+      
       const interval = setInterval(() => {
-        // basic html typing support (skips tags)
         if (text[i] === '<') {
           let tag = '';
           while (text[i] !== '>' && i < text.length) { tag += text[i]; i++; }
           tag += '>';
-          msg.innerHTML += tag;
+          currentHTML += tag;
         } else {
-          msg.innerHTML += text[i];
+          currentHTML += text[i];
         }
+        msg.innerHTML = currentHTML;
         i++;
-        chatWindow.scrollTop = chatWindow.scrollHeight;
-        if (i >= text.length) clearInterval(interval);
-      }, 15);
+        
+        // Only trigger layout reflow every few frames to prevent lag
+        if (i % 5 === 0) chatWindow.scrollTop = chatWindow.scrollHeight;
+        
+        if (i >= text.length) {
+          clearInterval(interval);
+          chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+      }, 5); // Faster typing, less lag
     }
   }
 
