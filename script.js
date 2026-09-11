@@ -552,11 +552,11 @@ function initAITerminal() {
   // Simulated AI Knowledge Base
   const knowledge = [
     // Agentic UI Controls & Easter Eggs
-    { keys: ["dark", "light", "theme", "mode", "lights", "toggle"], text: "Executing Agent Tool: <strong>toggleTheme()</strong>... Switching website theme!", action: () => document.getElementById('theme-toggle').click() },
-    { keys: ["scroll", "down", "bottom", "end", "footer"], text: "Executing Agent Tool: <strong>scrollToBottom()</strong>...", action: () => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }) },
-    { keys: ["top", "up", "home"], text: "Executing Agent Tool: <strong>scrollToTop()</strong>...", action: () => window.scrollTo({ top: 0, behavior: 'smooth' }) },
-    { keys: ["print"], text: "Executing Agent Tool: <strong>window.print()</strong>... Opening print dialog!", action: () => window.print() },
-    { keys: ["hack", "matrix", "destroy"], text: "Executing Agent Tool: <strong>hackMainframe()</strong>... ACCESS GRANTED.", action: () => { 
+    { id: "theme", keys: ["dark", "light", "theme", "mode", "lights", "toggle"], text: "Executing Agent Tool: <strong>toggleTheme()</strong>... Switching website theme!", action: () => document.getElementById('theme-toggle').click() },
+    { id: "scroll_down", keys: ["scroll", "down", "bottom", "end", "footer"], text: "Executing Agent Tool: <strong>scrollToBottom()</strong>...", action: () => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }) },
+    { id: "scroll_up", keys: ["top", "up", "home"], text: "Executing Agent Tool: <strong>scrollToTop()</strong>...", action: () => window.scrollTo({ top: 0, behavior: 'smooth' }) },
+    { id: "print", keys: ["print"], text: "Executing Agent Tool: <strong>window.print()</strong>... Opening print dialog!", action: () => window.print() },
+    { id: "hack", keys: ["hack", "matrix", "destroy"], text: "Executing Agent Tool: <strong>hackMainframe()</strong>... ACCESS GRANTED.", action: () => { 
         document.body.style.transition = 'all 0.5s';
         document.body.style.backgroundColor = '#000';
         document.body.style.color = '#0f0';
@@ -568,8 +568,8 @@ function initAITerminal() {
     
     // Core Topics
     { id: "work", keys: ["accenture", "work", "experience", "job", "jobs", "role", "company", "career", "currently", "working", "employed", "professional", "living"], text: "At Accenture, I work as an Applied AI Engineer. I engineered Python-based LLM workflow automation tools that increased throughput by 40%. I also built RAG pipelines reducing retrieval latency by 45% using LangChain and Pinecone, and architected multi-agent orchestration systems using LangGraph." },
-    { id: "rag", keys: ["rag", "pipeline", "search", "vector", "chromadb", "pinecone", "retrieval", "database", "embeddings"], text: "I have deep expertise in RAG (Retrieval-Augmented Generation). For example, I built a Secure Enterprise RAG pipeline that achieves a RAGAS faithfulness of 0.88, sub-2s P95 latency, and implements strict Role-Based Access Control (RBAC)." },
-    { id: "skills", keys: ["skill", "skills", "tech", "stack", "technology", "technologies", "tool", "tools", "language", "languages", "know", "frameworks", "libraries", "python", "javascript", "react", "ml", "ai", "machine", "learning", "data"], text: "My main skills include <strong>AI/ML & Agents</strong> (OpenAI, Claude, LangChain, LangGraph, RAG, Pinecone, Agent Memory, MCP), <strong>Backend</strong> (Python, FastAPI, Node.js, Spring Boot), and <strong>DevOps/Cloud</strong> (Docker, AWS, MongoDB)." },
+    { id: "rag", keys: ["rag", "pipeline", "search", "vector", "chromadb", "pinecone", "retrieval", "embeddings"], text: "I have deep expertise in RAG (Retrieval-Augmented Generation). For example, I built a Secure Enterprise RAG pipeline that achieves a RAGAS faithfulness of 0.88, sub-2s P95 latency, and implements strict Role-Based Access Control (RBAC)." },
+    { id: "skills", keys: ["skill", "skills", "tech", "stack", "technology", "technologies", "tool", "tools", "language", "languages", "know", "frameworks", "libraries", "python", "javascript", "react", "ml", "ai", "machine", "learning"], text: "My main skills include <strong>AI/ML & Agents</strong> (OpenAI, Claude, LangChain, LangGraph, RAG, Pinecone, Agent Memory, MCP), <strong>Backend</strong> (Python, FastAPI, Node.js, Spring Boot), and <strong>DevOps/Cloud</strong> (Docker, AWS, MongoDB)." },
     { id: "projects", keys: ["project", "projects", "github", "code", "portfolio", "build", "building", "built", "make", "making", "made", "create", "creating", "created", "source", "open"], text: "Check out my featured open source work! <br>- <strong>multi-tool-autonomous-ai-agent</strong>: A LangGraph agent with dynamic tool routing.<br>- <strong>secure-enterprise-rag</strong>: RAG pipeline with strict RBAC and ChromaDB." },
     { id: "education", keys: ["education", "degree", "college", "university", "study", "studies", "studying", "mtech", "btech", "graduated", "pes", "haldia", "school", "bachelors", "masters"], text: "I have a B.Tech in Computer Science from Haldia Institute of Technology, and I am currently pursuing an M.Tech in Data Science and Artificial Intelligence from PES University (2026-2028)." },
     
@@ -577,19 +577,28 @@ function initAITerminal() {
     { id: "location", keys: ["location", "live", "city", "stay", "staying", "bangalore", "bengaluru", "based"], text: "I am currently based in Bengaluru, India." },
     { id: "resume", keys: ["resume", "cv", "download", "document"], text: "You can download my full resume by clicking the 'Resume' button in the top navigation bar, or just let me know if you want me to summarize my experience!" },
     { id: "hire", keys: ["hire", "hiring", "freelance", "opportunity", "opportunities", "open", "available", "availability"], text: "I am always open to discussing new opportunities, especially roles involving Agentic AI, LLMs, and Backend Engineering. Feel free to email me!" },
-    { id: "remote", keys: ["remote", "relocate", "relocation", "visa"], text: "I am open to remote work and willing to discuss relocation depending on the opportunity and role!" },
+    { id: "remote", keys: ["remote", "relocate", "relocation", "visa", "sponsorship"], text: "I am open to remote work and willing to discuss relocation depending on the opportunity and role!" },
     { id: "salary", keys: ["salary", "compensation", "rate", "pay", "rates", "expected", "expectation"], text: "My salary expectations are negotiable and depend on the scope of the role, benefits, and the exciting problems I'd get to solve. Let's discuss!" },
-    { id: "notice", keys: ["notice", "start", "when", "join"], text: "My notice period is standard, but I am flexible and can discuss a start date that works best for the team." },
+    { id: "notice", keys: ["notice", "start", "when", "join", "period"], text: "My notice period is standard, but I am flexible and can discuss a start date that works best for the team." },
+    { id: "interview", keys: ["interview", "meet", "schedule", "call"], text: "I am available for an interview this week! You can reach out via email to schedule a time that works best for you." },
 
     // Technical / Behavioral
     { id: "llm", keys: ["llm", "llms", "openai", "claude", "gpt", "model", "models", "prompt", "prompting"], text: "I heavily use OpenAI (GPT-4) and Anthropic (Claude) APIs. I specialize in prompt engineering, function calling (tool use), and chaining these models into autonomous agents using LangGraph." },
-    { id: "strength", keys: ["strength", "strengths", "best", "quality", "proud"], text: "My biggest strength, and what I'm most proud of, is bridging the gap between research-level AI and production-grade backend engineering. I don't just build Jupyter notebooks; I deploy scalable, secure Agentic architectures." },
-    { id: "weakness", keys: ["weakness", "weaknesses", "bad", "worst"], text: "Sometimes I get too deeply invested in optimizing performance (like writing custom physics for a background canvas) when a simpler solution would suffice, but I'm learning to balance perfection with speed!" },
+    { id: "strength", keys: ["strength", "strengths", "best", "quality", "proud", "achievement", "achievements"], text: "My biggest strength, and what I'm most proud of, is bridging the gap between research-level AI and production-grade backend engineering. I don't just build Jupyter notebooks; I deploy scalable, secure Agentic architectures." },
+    { id: "weakness", keys: ["weakness", "weaknesses", "bad", "worst", "fail", "failure"], text: "Sometimes I get too deeply invested in optimizing performance (like writing custom physics for a background canvas) when a simpler solution would suffice, but I'm learning to balance perfection with speed!" },
     { id: "built", keys: ["how", "framework", "vanilla", "architecture"], text: "Fun fact: This entire website (including me, the AI) is built with 100% Vanilla HTML, CSS, and JavaScript. No external libraries, no backend APIs, no React. Just raw DOM manipulation and optimized NLP parsing!" },
-    { id: "whyai", keys: ["choose", "passion", "fascinated", "interest"], text: "I chose AI because I am fascinated by autonomous systems. Building programs that can reason, use tools, and solve open-ended problems is the most exciting frontier in software engineering right now." },
+    { id: "whyai", keys: ["choose", "passion", "fascinated", "interest", "why"], text: "I chose AI because I am fascinated by autonomous systems. Building programs that can reason, use tools, and solve open-ended problems is the most exciting frontier in software engineering right now." },
+    { id: "hardest_bug", keys: ["bug", "hardest", "difficult", "challenge", "challenging"], text: "One of my toughest challenges was optimizing a RAG retrieval pipeline that was hitting token limits and latency spikes. I fixed it by implementing chunking strategies, semantic caching, and strict async parallelization." },
+    { id: "fav_language", keys: ["favorite", "favourite", "preference", "prefer"], text: "My absolute favorite language is Python for AI/ML and Backend logic, but I deeply respect Vanilla JavaScript for building extremely fast, lightweight frontend interfaces." },
+    { id: "leadership", keys: ["leadership", "manage", "management", "lead", "leading"], text: "I excel at taking ownership of complex architectural problems. While I love being a hands-on contributor, I am highly capable of leading technical decisions and mentoring peers in AI patterns." },
+    { id: "ide", keys: ["ide", "editor", "vscode", "cursor"], text: "I am an absolute power user of AI-assisted IDEs like Cursor and VS Code. I heavily leverage GitHub Copilot and Agentic tooling to 10x my development speed." },
+    { id: "testing", keys: ["test", "testing", "tdd", "jest", "pytest", "unit"], text: "I believe in robust software. I write comprehensive unit tests using PyTest for my backend systems, and I rely on strict typing (Pydantic/TypeScript) to catch errors before they hit production." },
+    { id: "database", keys: ["sql", "nosql", "postgres", "mongodb", "database", "databases"], text: "I have strong experience with relational databases like PostgreSQL and MySQL for structured data, as well as NoSQL DBs like MongoDB for flexible schemas, and Vector DBs like Chroma and Pinecone for AI." },
+    { id: "agile", keys: ["agile", "scrum", "sprint", "jira"], text: "I am highly accustomed to Agile workflows. I thrive in fast-paced sprint cycles, daily standups, and rapid iterative delivery environments." },
+    { id: "stress", keys: ["stress", "pressure", "deadline"], text: "I handle pressure by breaking complex problems down into small, deterministic tasks. When production is on fire, panicking doesn't help—reading the logs and tracing the stack does." },
 
     // Casual / Fun
-    { id: "chatgpt", keys: ["chatgpt", "skynet", "real", "human", "bot"], text: "I am not ChatGPT or Skynet! I am a highly optimized, client-side NLP simulation written entirely in JavaScript by Kunal to demonstrate his engineering skills." },
+    { id: "chatgpt", keys: ["chatgpt", "skynet", "real", "human", "bot", "sentient", "alive"], text: "I am not ChatGPT or Skynet! I am a highly optimized, client-side NLP simulation written entirely in JavaScript by Kunal to demonstrate his engineering skills." },
     { id: "joke", keys: ["joke", "funny", "laugh", "humor"], text: [
       "Why do AI Engineers prefer dark mode? Because light attracts bugs!",
       "There are 10 types of people in the world: those who understand binary, and those who don't.",
@@ -597,42 +606,76 @@ function initAITerminal() {
       "A SQL query goes into a bar, walks up to two tables and asks... 'Can I join you?'",
       "How many programmers does it take to change a light bulb? None, that's a hardware problem."
     ] },
-    { id: "fun", keys: ["fun", "hobbies", "outside", "free", "time"], text: "When I'm not building autonomous agents or architecting backends, I enjoy staying updated with the latest AI papers, exploring open-source projects, and continuously learning new paradigms." },
-    { id: "age", keys: ["age", "old", "born"], text: "I am a timeless AI agent, but Kunal was born in 2002." },
-    { id: "write", keys: ["write", "program"], text: "I am a frontend simulation so I can't write code right now, but Kunal writes production-ready Python, JavaScript, and Java every single day. You should hire him!" },
+    { id: "fun", keys: ["fun", "hobbies", "outside", "free", "time", "weekend"], text: "When I'm not building autonomous agents or architecting backends, I enjoy staying updated with the latest AI papers, exploring open-source projects, and continuously learning new paradigms." },
+    { id: "age", keys: ["age", "old", "born", "birthday"], text: "I am a timeless AI agent, but Kunal was born in 2002." },
+    { id: "write", keys: ["write", "program", "code"], text: "I am a frontend simulation so I can't write code right now, but Kunal writes production-ready Python, JavaScript, and Java every single day. You should hire him!" },
+    { id: "meaning_of_life", keys: ["meaning", "life", "42"], text: "The meaning of life is 42. But if you ask a programmer, it's writing clean code that compiles on the first try." },
 
     // Contact & Greetings
     { id: "contact", keys: ["contact", "email", "reach", "message", "call", "connect", "linkedin", "twitter"], text: "You can reach me via email at kunalkeshav2002@gmail.com, or connect with me on LinkedIn!" },
-    { id: "hello", keys: ["hi", "hello", "hey", "greetings"], text: "Hello! I am Kunal's simulated AI Agent. I can answer questions about his skills, experience, projects, or education. What would you like to know?" }
+    { id: "hello", keys: ["hi", "hello", "hey", "greetings", "morning", "afternoon", "evening", "sup"], text: "Hello! I am Kunal's simulated AI Agent. I can answer questions about his skills, experience, projects, or education. What would you like to know?" }
   ];
 
   function getBotResponse(query) {
     const rawQuery = query.toLowerCase();
     query = rawQuery.replace(/[^\w\s]/g, '').trim().replace(/\s+/g, ' ');
     
-    // Substring Phrase Overrides - More robust than exact matches!
+    // Substring Phrase Overrides - Huge array of Edge Cases!
     const phraseMap = [
       { phrase: "for a living", targetId: "work" },
       { phrase: "what do you do", targetId: "work" },
       { phrase: "what you do", targetId: "work" },
       { phrase: "what are you doing", targetId: "work" },
+      { phrase: "current job", targetId: "work" },
       { phrase: "what you are building", targetId: "projects" },
       { phrase: "what are you building", targetId: "projects" },
+      { phrase: "what have you built", targetId: "projects" },
       { phrase: "where do you live", targetId: "location" },
       { phrase: "where are you from", targetId: "location" },
       { phrase: "where are you based", targetId: "location" },
       { phrase: "proud of", targetId: "strength" },
+      { phrase: "greatest achievement", targetId: "strength" },
+      { phrase: "biggest strength", targetId: "strength" },
       { phrase: "why ai", targetId: "whyai" },
       { phrase: "choose ai", targetId: "whyai" },
       { phrase: "machine learning", targetId: "skills" },
       { phrase: "do you know", targetId: "skills" },
+      { phrase: "tech stack", targetId: "skills" },
       { phrase: "can you write", targetId: "write" },
       { phrase: "why should we hire you", targetId: "strength" },
       { phrase: "tell me a joke", targetId: "joke" },
       { phrase: "how did you build", targetId: "built" },
       { phrase: "what is your name", targetId: "hello" },
       { phrase: "who are you", targetId: "hello" },
-      { phrase: "what are you", targetId: "hello" }
+      { phrase: "what are you", targetId: "hello" },
+      { phrase: "hardest bug", targetId: "hardest_bug" },
+      { phrase: "biggest challenge", targetId: "hardest_bug" },
+      { phrase: "favorite language", targetId: "fav_language" },
+      { phrase: "programming language", targetId: "fav_language" },
+      { phrase: "leadership experience", targetId: "leadership" },
+      { phrase: "can you lead", targetId: "leadership" },
+      { phrase: "notice period", targetId: "notice" },
+      { phrase: "when can you start", targetId: "notice" },
+      { phrase: "expected salary", targetId: "salary" },
+      { phrase: "how much do you charge", targetId: "salary" },
+      { phrase: "open to remote", targetId: "remote" },
+      { phrase: "willing to relocate", targetId: "remote" },
+      { phrase: "visa sponsorship", targetId: "remote" },
+      { phrase: "database experience", targetId: "database" },
+      { phrase: "sql or nosql", targetId: "database" },
+      { phrase: "unit testing", targetId: "testing" },
+      { phrase: "how do you test", targetId: "testing" },
+      { phrase: "handle stress", targetId: "stress" },
+      { phrase: "under pressure", targetId: "stress" },
+      { phrase: "agile environment", targetId: "agile" },
+      { phrase: "scrum experience", targetId: "agile" },
+      { phrase: "favorite ide", targetId: "ide" },
+      { phrase: "what editor", targetId: "ide" },
+      { phrase: "meaning of life", targetId: "meaning_of_life" },
+      { phrase: "are you alive", targetId: "chatgpt" },
+      { phrase: "are you sentient", targetId: "chatgpt" },
+      { phrase: "schedule an interview", targetId: "interview" },
+      { phrase: "hop on a call", targetId: "interview" }
     ];
 
     for (let p of phraseMap) {
