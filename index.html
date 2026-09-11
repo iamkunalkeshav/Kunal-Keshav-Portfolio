@@ -28,6 +28,9 @@
     <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
     <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
   </button>
+
+  <!-- Neural Background -->
+  <canvas id="neural-canvas"></canvas>
 <!-- ============================================================
      INTRO / LOADING SCREEN
      ============================================================ -->
@@ -593,6 +596,44 @@
     </div><!-- /page-sections -->
   </div><!-- /container -->
 </main>
+
+<!-- AI Terminal Toggle Button -->
+<button id="ai-toggle-btn" class="ai-toggle-btn" aria-label="Ask Kunal AI">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bot"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+  Ask AI <span class="kbd">⌘K</span>
+</button>
+
+<!-- AI Terminal Modal -->
+<div id="ai-modal" class="ai-modal" aria-hidden="true">
+  <div class="ai-modal-backdrop" id="ai-modal-backdrop"></div>
+  <div class="ai-modal-content">
+    <div class="ai-header">
+      <div class="ai-header-title">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-terminal"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>
+        Kunal_Agentic_AI v1.0
+      </div>
+      <button id="ai-close-btn" class="ai-close-btn" aria-label="Close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+    
+    <div class="ai-chat-window" id="ai-chat-window">
+      <div class="ai-message system">
+        Initializing Kunal_Agentic_AI context...<br>
+        Loaded skills: Python, LangChain, RAG, Multi-Agent Systems.<br>
+        Type your question below, or try: 
+        <button class="ai-chip" data-q="What did you do at Accenture?">Accenture</button>
+        <button class="ai-chip" data-q="What are your main skills?">Skills</button>
+        <button class="ai-chip" data-q="Tell me about your RAG pipeline project.">RAG Project</button>
+      </div>
+    </div>
+
+    <div class="ai-input-area">
+      <svg class="ai-prompt-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      <input type="text" id="ai-input" placeholder="Ask anything about Kunal..." autocomplete="off" spellcheck="false">
+    </div>
+  </div>
+</div>
 
 <script src="script.js"></script>
 </body>

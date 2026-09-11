@@ -407,3 +407,216 @@ function initThemeToggle() {
 
 // Ensure it runs on DOM load
 document.addEventListener('DOMContentLoaded', initThemeToggle);
+
+/* ──────────────────────────────────────────────────────────
+   NEURAL CANVAS BACKGROUND
+   ────────────────────────────────────────────────────────── */
+function initNeuralCanvas() {
+  const canvas = document.getElementById('neural-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  let width = window.innerWidth;
+  let height = window.innerHeight;
+  canvas.width = width;
+  canvas.height = height;
+
+  window.addEventListener('resize', () => {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+  });
+
+  const particles = [];
+  const numParticles = window.innerWidth < 768 ? 40 : 80;
+
+  for (let i = 0; i < numParticles; i++) {
+    particles.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5,
+      radius: Math.random() * 2 + 1
+    });
+  }
+
+  let mouse = { x: -1000, y: -1000 };
+  window.addEventListener('mousemove', (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+  window.addEventListener('mouseout', () => {
+    mouse.x = -1000;
+    mouse.y = -1000;
+  });
+
+  function draw() {
+    ctx.clearRect(0, 0, width, height);
+    const isDark = document.documentElement.classList.contains('dark');
+    const color = isDark ? '255, 255, 255' : '17, 24, 39';
+
+    for (let i = 0; i < particles.length; i++) {
+      let p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 0 || p.x > width) p.vx *= -1;
+      if (p.y < 0 || p.y > height) p.vy *= -1;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${color}, 0.5)`;
+      ctx.fill();
+
+      // Connect to mouse
+      let dxMouse = mouse.x - p.x;
+      let dyMouse = mouse.y - p.y;
+      let distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+      if (distMouse < 150) {
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(mouse.x, mouse.y);
+        ctx.strokeStyle = `rgba(${color}, ${0.2 - distMouse/150*0.2})`;
+        ctx.stroke();
+        
+        // Slight pull towards mouse
+        p.x += dxMouse * 0.01;
+        p.y += dyMouse * 0.01;
+      }
+
+      // Connect to other particles
+      for (let j = i + 1; j < particles.length; j++) {
+        let p2 = particles[j];
+        let dx = p.x - p2.x;
+        let dy = p.y - p2.y;
+        let dist = Math.sqrt(dx*dx + dy*dy);
+        
+        if (dist < 100) {
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.strokeStyle = `rgba(${color}, ${0.15 - dist/100*0.15})`;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+}
+document.addEventListener('DOMContentLoaded', initNeuralCanvas);
+
+
+/* ──────────────────────────────────────────────────────────
+   AI TERMINAL CHATBOT
+   ────────────────────────────────────────────────────────── */
+function initAITerminal() {
+  const toggleBtn = document.getElementById('ai-toggle-btn');
+  const closeBtn = document.getElementById('ai-close-btn');
+  const modal = document.getElementById('ai-modal');
+  const backdrop = document.getElementById('ai-modal-backdrop');
+  const input = document.getElementById('ai-input');
+  const chatWindow = document.getElementById('ai-chat-window');
+  const chips = document.querySelectorAll('.ai-chip');
+
+  if (!toggleBtn || !modal) return;
+
+  function openModal() {
+    modal.classList.add('active');
+    setTimeout(() => input.focus(), 100);
+  }
+
+  function closeModal() {
+    modal.classList.remove('active');
+  }
+
+  toggleBtn.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+  backdrop.addEventListener('click', closeModal);
+
+  // Cmd+K to open
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      if (modal.classList.contains('active')) closeModal();
+      else openModal();
+    }
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal();
+    }
+  });
+
+  // Simulated AI Logic
+  const responses = [
+    { keys: ["accenture", "work", "experience"], text: "At Accenture, I work as an Applied AI Engineer. I engineered Python-based LLM workflow automation tools that increased throughput by 40%. I also built RAG pipelines reducing retrieval latency by 45% using LangChain and Pinecone, and architected multi-agent orchestration systems using LangGraph." },
+    { keys: ["rag", "pipeline", "search"], text: "I have deep expertise in RAG (Retrieval-Augmented Generation). For example, I built a Secure Enterprise RAG pipeline that achieves a RAGAS faithfulness of 0.88, sub-2s P95 latency, and implements strict Role-Based Access Control (RBAC)." },
+    { keys: ["skills", "tech", "stack"], text: "My main skills include <strong>AI/ML & Agents</strong> (OpenAI, Claude, LangChain, LangGraph, RAG, Pinecone, Agent Memory, MCP), <strong>Backend</strong> (Python, FastAPI, Node.js, Spring Boot), and <strong>DevOps/Cloud</strong> (Docker, AWS, MongoDB)." },
+    { keys: ["project", "github"], text: "Check out my featured open source work! <br>- <strong>multi-tool-autonomous-ai-agent</strong>: A LangGraph agent with dynamic tool routing.<br>- <strong>secure-enterprise-rag</strong>: RAG pipeline with strict RBAC and ChromaDB." },
+    { keys: ["education", "degree"], text: "I have a Bachelor of Technology in Computer Science from Haldia Institute of Technology, and I am pursuing a Master of Technology in Data Science and Artificial Intelligence from PES University (2026-2028)." },
+    { keys: ["hi", "hello", "hey"], text: "Hello! I am Kunal's simulated AI Agent. I can answer questions about his skills, experience, projects, or education. What would you like to know?" }
+  ];
+
+  function getBotResponse(query) {
+    query = query.toLowerCase();
+    for (let r of responses) {
+      if (r.keys.some(k => query.includes(k))) {
+        return r.text;
+      }
+    }
+    return "I'm a simulated agent trained on Kunal's resume, so I don't know the answer to that specific question. Try asking about his <strong>skills</strong>, <strong>Accenture experience</strong>, or <strong>projects</strong>!";
+  }
+
+  function appendMessage(text, sender) {
+    const msg = document.createElement('div');
+    msg.className = `ai-message ${sender}`;
+    chatWindow.appendChild(msg);
+    
+    if (sender === 'user') {
+      msg.textContent = text;
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    } else {
+      // Typewriter effect for bot
+      let i = 0;
+      msg.innerHTML = '';
+      const interval = setInterval(() => {
+        // basic html typing support (skips tags)
+        if (text[i] === '<') {
+          let tag = '';
+          while (text[i] !== '>' && i < text.length) { tag += text[i]; i++; }
+          tag += '>';
+          msg.innerHTML += tag;
+        } else {
+          msg.innerHTML += text[i];
+        }
+        i++;
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+        if (i >= text.length) clearInterval(interval);
+      }, 15);
+    }
+  }
+
+  function handleInput(text) {
+    if (!text.trim()) return;
+    appendMessage(text, 'user');
+    input.value = '';
+    
+    // Simulate network delay
+    setTimeout(() => {
+      appendMessage(getBotResponse(text), 'bot');
+    }, 400);
+  }
+
+  input.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      handleInput(input.value);
+    }
+  });
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      handleInput(chip.dataset.q);
+    });
+  });
+}
+document.addEventListener('DOMContentLoaded', initAITerminal);
