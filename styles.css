@@ -1996,4 +1996,9 @@ html.dark .sys-log-stream {
   .ai-input-area {
     padding-bottom: env(safe-area-inset-bottom, 1rem); /* handle iOS home bar */
   }
+  .ai-toggle-btn {
+    bottom: calc(4.5rem + env(safe-area-inset-bottom, 1rem));
+    right: 1rem;
+    padding: 0.6rem 1rem;
+  }
 }
