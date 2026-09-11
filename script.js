@@ -557,14 +557,14 @@ function initAITerminal() {
     { keys: ["top", "up", "home"], text: "Executing Agent Tool: <strong>scrollToTop()</strong>...", action: () => window.scrollTo({ top: 0, behavior: 'smooth' }) },
     
     // Core Topics
-    { keys: ["accenture", "work", "experience", "job", "do", "role", "company", "career", "currently", "now", "working", "employed", "where", "professional"], text: "At Accenture, I work as an Applied AI Engineer. I engineered Python-based LLM workflow automation tools that increased throughput by 40%. I also built RAG pipelines reducing retrieval latency by 45% using LangChain and Pinecone, and architected multi-agent orchestration systems using LangGraph." },
+    { keys: ["accenture", "work", "experience", "job", "jobs", "do", "doing", "did", "does", "role", "company", "career", "currently", "now", "working", "employed", "where", "professional"], text: "At Accenture, I work as an Applied AI Engineer. I engineered Python-based LLM workflow automation tools that increased throughput by 40%. I also built RAG pipelines reducing retrieval latency by 45% using LangChain and Pinecone, and architected multi-agent orchestration systems using LangGraph." },
     { keys: ["rag", "pipeline", "search", "vector", "chromadb", "pinecone", "retrieval", "database", "embeddings"], text: "I have deep expertise in RAG (Retrieval-Augmented Generation). For example, I built a Secure Enterprise RAG pipeline that achieves a RAGAS faithfulness of 0.88, sub-2s P95 latency, and implements strict Role-Based Access Control (RBAC)." },
     { keys: ["skill", "skills", "tech", "stack", "technology", "technologies", "tool", "tools", "language", "languages", "know", "frameworks", "libraries", "python", "javascript", "react"], text: "My main skills include <strong>AI/ML & Agents</strong> (OpenAI, Claude, LangChain, LangGraph, RAG, Pinecone, Agent Memory, MCP), <strong>Backend</strong> (Python, FastAPI, Node.js, Spring Boot), and <strong>DevOps/Cloud</strong> (Docker, AWS, MongoDB)." },
-    { keys: ["project", "projects", "github", "code", "portfolio", "build", "built", "made", "created", "source", "open"], text: "Check out my featured open source work! <br>- <strong>multi-tool-autonomous-ai-agent</strong>: A LangGraph agent with dynamic tool routing.<br>- <strong>secure-enterprise-rag</strong>: RAG pipeline with strict RBAC and ChromaDB." },
-    { keys: ["education", "degree", "college", "university", "study", "studies", "mtech", "btech", "graduated", "pes", "haldia", "school", "bachelors", "masters"], text: "I have a B.Tech in Computer Science from Haldia Institute of Technology, and I am currently pursuing an M.Tech in Data Science and Artificial Intelligence from PES University (2026-2028)." },
+    { keys: ["project", "projects", "github", "code", "portfolio", "build", "building", "built", "make", "making", "made", "create", "creating", "created", "source", "open"], text: "Check out my featured open source work! <br>- <strong>multi-tool-autonomous-ai-agent</strong>: A LangGraph agent with dynamic tool routing.<br>- <strong>secure-enterprise-rag</strong>: RAG pipeline with strict RBAC and ChromaDB." },
+    { keys: ["education", "degree", "college", "university", "study", "studies", "studying", "mtech", "btech", "graduated", "pes", "haldia", "school", "bachelors", "masters"], text: "I have a B.Tech in Computer Science from Haldia Institute of Technology, and I am currently pursuing an M.Tech in Data Science and Artificial Intelligence from PES University (2026-2028)." },
     
     // Additional Recruiter Topics
-    { keys: ["location", "live", "city", "stay", "bangalore", "bengaluru", "from", "based"], text: "I am currently based in Bengaluru, India." },
+    { keys: ["location", "live", "living", "city", "stay", "staying", "bangalore", "bengaluru", "from", "based"], text: "I am currently based in Bengaluru, India." },
     { keys: ["resume", "cv", "download", "document"], text: "You can download my full resume by clicking the 'Resume' button in the top navigation bar, or just let me know if you want me to summarize my experience!" },
     { keys: ["hire", "hiring", "freelance", "opportunity", "opportunities", "open", "available", "availability"], text: "I am always open to discussing new opportunities, especially roles involving Agentic AI, LLMs, and Backend Engineering. Feel free to email me!" },
     { keys: ["llm", "llms", "openai", "claude", "gpt", "model", "models", "prompt", "prompting"], text: "I heavily use OpenAI (GPT-4) and Anthropic (Claude) APIs. I specialize in prompt engineering, function calling (tool use), and chaining these models into autonomous agents using LangGraph." },
@@ -575,14 +575,18 @@ function initAITerminal() {
   ];
 
   function getBotResponse(query) {
-    // Strip punctuation to improve matching
-    query = query.toLowerCase().replace(/[^\w\s]/g, '');
+    // Strip punctuation, trim whitespace, and normalize spaces to improve matching
+    query = query.toLowerCase().replace(/[^\w\s]/g, '').trim().replace(/\s+/g, ' ');
     
     // Hardcoded exact phrase overrides for perfect matching
     const exactMatches = {
       "what you do": "work",
       "what do you do": "work",
       "what are you doing": "work",
+      "what are u doing": "work",
+      "what you are building": "project",
+      "whats you are building": "project",
+      "what are you building": "project",
       "who are you": "hello",
       "what are you": "hello",
       "where do you live": "location",
