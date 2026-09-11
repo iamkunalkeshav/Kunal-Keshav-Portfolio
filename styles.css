@@ -1973,3 +1973,27 @@ html.dark .sys-log-stream {
   from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* Mobile Responsive AI Modal */
+@media (max-width: 639px) {
+  .ai-modal {
+    padding: 0;
+  }
+  .ai-modal-content {
+    max-width: 100%;
+    height: 100dvh;
+    border-radius: 0;
+    border: none;
+    transform: translateY(100%);
+  }
+  .ai-modal.active .ai-modal-content {
+    transform: translateY(0);
+  }
+  .ai-chat-window {
+    height: auto;
+    flex: 1;
+  }
+  .ai-input-area {
+    padding-bottom: env(safe-area-inset-bottom, 1rem); /* handle iOS home bar */
+  }
+}
