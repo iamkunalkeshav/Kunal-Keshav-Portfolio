@@ -630,9 +630,13 @@ function initAITerminal() {
     { id: "write", keys: ["write", "program", "code"], text: "I am a frontend simulation so I can't write code right now, but Kunal writes production-ready Python, JavaScript, and Java every single day. You should hire him!" },
     { id: "meaning_of_life", keys: ["meaning", "life", "42"], text: "The meaning of life is 42. But if you ask a programmer, it's writing clean code that compiles on the first try." },
 
+    // Fallbacks & Safety
+    { id: "abuse", keys: ["fuck", "shit", "bitch", "crap", "idiot", "stupid", "sick", "suck", "hell", "damn", "ass", "asshole"], text: "I'm just a friendly AI Agent! Let's keep it professional. Would you like to know about Kunal's work experience or technical skills?" },
+    { id: "pushy", keys: ["answer", "tell", "now", "quick", "hurry", "respond"], text: "I'm ready when you are! What specific information are you looking for?" },
+
     // Contact & Greetings
     { id: "contact", keys: ["contact", "email", "reach", "message", "call", "connect", "linkedin", "twitter"], text: "You can reach me via email at kunalkeshav2002@gmail.com, or connect with me on LinkedIn!" },
-    { id: "hello", keys: ["hi", "hello", "hey", "greetings", "morning", "afternoon", "evening", "sup"], text: "Hello! I am Kunal's simulated AI Agent. I can answer questions about his skills, experience, projects, or education. What would you like to know?" }
+    { id: "hello", keys: ["hi", "hello", "hey", "greetings", "morning", "afternoon", "evening", "sup", "name"], text: "Hello! I am Kunal's simulated AI Agent. I can answer questions about his skills, experience, projects, or education. What would you like to know?" }
   ];
 
   function getBotResponse(query) {
