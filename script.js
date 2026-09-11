@@ -589,7 +589,13 @@ function initAITerminal() {
     
     // Casual / Fun
     { keys: ["chatgpt", "skynet", "ai", "real", "human", "bot"], text: "I am not ChatGPT or Skynet! I am a highly optimized, client-side NLP simulation written entirely in JavaScript by Kunal to demonstrate his engineering skills." },
-    { keys: ["joke", "funny", "laugh", "humor"], text: "Why do AI Engineers prefer dark mode? Because light attracts bugs!" },
+    { keys: ["joke", "funny", "laugh", "humor"], text: [
+      "Why do AI Engineers prefer dark mode? Because light attracts bugs!",
+      "There are 10 types of people in the world: those who understand binary, and those who don't.",
+      "Why did the programmer quit his job? Because he didn't get arrays.",
+      "A SQL query goes into a bar, walks up to two tables and asks... 'Can I join you?'",
+      "How many programmers does it take to change a light bulb? None, that's a hardware problem."
+    ] },
     { keys: ["fun", "hobbies", "outside", "free", "time"], text: "When I'm not building autonomous agents or architecting backends, I enjoy staying updated with the latest AI papers, exploring open-source projects, and continuously learning new paradigms." },
     { keys: ["age", "old", "born"], text: "I am a timeless AI agent, but Kunal was born in 2002." },
     { keys: ["write", "code", "program"], text: "I am a frontend simulation so I can't write code right now, but Kunal writes production-ready Python, JavaScript, and Java every single day. You should hire him!" },
@@ -627,7 +633,10 @@ function initAITerminal() {
     if (exactMatches[query]) {
       const targetKey = exactMatches[query];
       const match = knowledge.find(k => k.keys.includes(targetKey));
-      if (match) return { text: match.text, action: match.action };
+      if (match) {
+        let responseText = Array.isArray(match.text) ? match.text[Math.floor(Math.random() * match.text.length)] : match.text;
+        return { text: responseText, action: match.action };
+      }
     }
     
     let bestMatch = null;
@@ -655,7 +664,8 @@ function initAITerminal() {
     }
 
     if (bestMatch && highestScore > 0) {
-      return { text: bestMatch.text, action: bestMatch.action };
+      let responseText = Array.isArray(bestMatch.text) ? bestMatch.text[Math.floor(Math.random() * bestMatch.text.length)] : bestMatch.text;
+      return { text: responseText, action: bestMatch.action };
     }
 
     return { text: "I'm a simulated agent trained on Kunal's resume, so I don't know the answer to that specific question. Try asking about his <strong>skills</strong>, <strong>Accenture experience</strong>, or <strong>projects</strong>!" };
