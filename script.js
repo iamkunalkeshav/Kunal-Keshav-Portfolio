@@ -551,6 +551,9 @@ function initAITerminal() {
 
   // Simulated AI Logic
   const responses = [
+    { keys: ["dark", "light", "theme", "mode", "lights"], text: "Executing Agent Tool: <strong>toggleTheme()</strong>... Switching website theme!", action: () => document.getElementById('theme-toggle').click() },
+    { keys: ["scroll", "down", "bottom", "end", "footer"], text: "Executing Agent Tool: <strong>scrollToBottom()</strong>...", action: () => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }) },
+    { keys: ["top", "up", "home"], text: "Executing Agent Tool: <strong>scrollToTop()</strong>...", action: () => window.scrollTo({ top: 0, behavior: 'smooth' }) },
     { keys: ["accenture", "work", "experience", "job"], text: "At Accenture, I work as an Applied AI Engineer. I engineered Python-based LLM workflow automation tools that increased throughput by 40%. I also built RAG pipelines reducing retrieval latency by 45% using LangChain and Pinecone, and architected multi-agent orchestration systems using LangGraph." },
     { keys: ["rag", "pipeline", "search", "vector"], text: "I have deep expertise in RAG (Retrieval-Augmented Generation). For example, I built a Secure Enterprise RAG pipeline that achieves a RAGAS faithfulness of 0.88, sub-2s P95 latency, and implements strict Role-Based Access Control (RBAC)." },
     { keys: ["skill", "skills", "tech", "stack", "technology", "technologies", "tool", "tools"], text: "My main skills include <strong>AI/ML & Agents</strong> (OpenAI, Claude, LangChain, LangGraph, RAG, Pinecone, Agent Memory, MCP), <strong>Backend</strong> (Python, FastAPI, Node.js, Spring Boot), and <strong>DevOps/Cloud</strong> (Docker, AWS, MongoDB)." },
@@ -564,13 +567,13 @@ function initAITerminal() {
     query = query.toLowerCase();
     for (let r of responses) {
       if (r.keys.some(k => new RegExp('\\b' + k + '\\b').test(query))) {
-        return r.text;
+        return { text: r.text, action: r.action };
       }
     }
-    return "I'm a simulated agent trained on Kunal's resume, so I don't know the answer to that specific question. Try asking about his <strong>skills</strong>, <strong>Accenture experience</strong>, or <strong>projects</strong>!";
+    return { text: "I'm a simulated agent trained on Kunal's resume, so I don't know the answer to that specific question. Try asking about his <strong>skills</strong>, <strong>Accenture experience</strong>, or <strong>projects</strong>!" };
   }
 
-  function appendMessage(text, sender) {
+  function appendMessage(text, sender, callback) {
     const msg = document.createElement('div');
     msg.className = `ai-message ${sender}`;
     chatWindow.appendChild(msg);
@@ -578,6 +581,7 @@ function initAITerminal() {
     if (sender === 'user') {
       msg.textContent = text;
       chatWindow.scrollTop = chatWindow.scrollHeight;
+      if (callback) callback();
     } else {
       // Optimized Typewriter effect
       let i = 0;
@@ -602,6 +606,7 @@ function initAITerminal() {
         if (i >= text.length) {
           clearInterval(interval);
           chatWindow.scrollTop = chatWindow.scrollHeight;
+          if (callback) setTimeout(callback, 300);
         }
       }, 5); // Faster typing, less lag
     }
@@ -614,7 +619,8 @@ function initAITerminal() {
     
     // Simulate network delay
     setTimeout(() => {
-      appendMessage(getBotResponse(text), 'bot');
+      const response = getBotResponse(text);
+      appendMessage(response.text, 'bot', response.action);
     }, 400);
   }
 
