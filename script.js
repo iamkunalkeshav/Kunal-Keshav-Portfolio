@@ -259,10 +259,13 @@ function initActiveNav() {
       if (entry.isIntersecting) {
         const id = entry.target.getAttribute('id');
         navLinks.forEach(link => {
-          link.style.fontWeight = link.getAttribute('href') === `#${id}` ? '700' : '500';
-          link.style.color = link.getAttribute('href') === `#${id}`
-            ? 'hsl(220.9 39.3% 11%)'
-            : '';
+          if (link.getAttribute('href') === `#${id}`) {
+            link.classList.add('active');
+            link.style.fontWeight = '700';
+          } else {
+            link.classList.remove('active');
+            link.style.fontWeight = '500';
+          }
         });
       }
     });
